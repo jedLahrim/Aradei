@@ -1,0 +1,716 @@
+<style>
+  .sections-wrapper {
+    width: 100% !important;
+    white-space: break-spaces;
+  }
+
+  .doc-section {
+    border-width: 1px 0 1px 0;
+    border-style: solid;
+    border-color: #ccc;
+  }
+
+  .doc-section__header {
+    background-color: #999999 !important;
+    color: white;
+    font-weight: 600;
+  }
+
+  .sqft-data-table {
+    width: 100%;
+  }
+
+  .sqft-data-table:not(.borderless) {
+    border-collapse: collapse;
+  }
+
+  .sqft-data-table:not(.borderless)>td,
+  .sqft-data-table:not(.borderless)>th {
+    border: 1px solid #ccc;
+    padding: 3px;
+  }
+
+  .sqft-data-table.borderless>td {
+    padding: 3px 0;
+  }
+
+  .sqft-data-table.note>tr,
+  .sqft-data-table.note>td {
+    border: none;
+  }
+
+  .sqft-data-table>td,
+  .sqft-data-table>th {
+    text-align: start;
+    color: black !important;
+    max-width: fit-content !important;
+  }
+
+  .sqft-data-table>td[role="row"],
+  .sqft-data-table>th[role="row"] {
+    background-color: #d9d9d9;
+    font-weight: normal;
+  }
+
+  .sqft-data-table>th[role="section"] {
+    background-color: #d3d3d3;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  .header {
+    width: 100%;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: 600;
+    border-collapse: collapse;
+  }
+
+  .header>h1 {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    color: white !important;
+  }
+
+  .header>h2 {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    color: white !important;
+  }
+
+  .header>tr:not(.asset-name)>td {
+    background: #980000 !important;
+    color: white !important;
+    print-color-adjust: exact !important;
+  }
+
+  .header>tr.asset-name>td {
+    print-color-adjust: exact !important;
+    background-color: transparent;
+    color: black !important;
+    font-weight: normal;
+    text-align: start;
+    padding: 2px;
+  }
+
+  table {
+    page-break-after: auto !important;
+    width: 100% !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+  }
+
+  td {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
+    print-color-adjust: exact;
+  }
+
+  td[role="row"],
+  th[role="row"] {
+    background-color: #d9d9d9 !important;
+    font-weight: normal !important;
+  }
+
+  th[role="section"] {
+    background-color: #d3d3d3 !important;
+    font-weight: normal !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  .doc-section {
+    border: none !important;
+  }
+
+  .sections-wrapper.com>.header tr:not(.asset-name) td,
+  .sections-wrapper.longcom>.header tr:not(.asset-name) td {
+    background-color: #324cae !important;
+  }
+
+  .sections-wrapper.rtm .header tr:not(.asset-name) td {
+    background-color: #f28a36 !important;
+  }
+</style>
+<div class="sections-wrapper">
+  <table class="header">
+    <tr>
+      <td>
+        <h1>HEAD OF TERMS</h1>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>Site: {{ retailCenter.name }}</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>{{ company.name }}</h2>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>{{ date }}</h2>
+      </td>
+    </tr>
+    <tr class="asset-name">
+      <td>
+        <span> {{ retailCenter.name }}</span>
+      </td>
+    </tr>
+  </table>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      Local
+    </header>
+    <table class="sqft-data-table">
+      <thead>
+        <th />
+        <th>Nª</th>
+        <th>Niveau</th>
+        <th>Surface GLA RDC m2</th>
+        <th>Surface GLA mezzanine m2</th>
+        <th>Surface terrasse m2</th>
+        <th>Surface GLA pondérée m2</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td role="row">
+            Local principal
+          </td>
+          <td>
+            {{ selectedFirstUnit.unitId }}
+          </td>
+          <td>
+            {{ selectedFirstUnit.floor.name }}
+          </td>
+          <td :class="{ editable }">
+            <span :contenteditable="editable" @keydown="preventLineBreaks"
+              @input="onDataFieldInput('surface', $event.target.innerText)">
+              {{ data.surface }}
+            </span>
+          </td>
+          <td>
+            {{ selectedFirstUnit.mezzanine || 0 }}
+          </td>
+          <td>
+            {{ selectedFirstUnit.terrasse || 0 }}
+          </td>
+          <!-- Surface ** -->
+          <td>
+            {{ (parseFloat(data.surface) || 0) + ((selectedFirstUnit.mezzanine / 2) || 0) + ((selectedFirstUnit.terrasse
+            / 2) || 0) }}
+          </td>
+        </tr>
+        <tr class="note">
+          <td />
+          <td colspan="100%">
+            *Les surfaces communiquées sont approximatives - les loyers seront
+            ajustés en fonction des surfaces
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      ENSEIGNE ACTIVITE
+    </header>
+    <table class="sqft-data-table">
+      <tr>
+        <th role="row">
+          Enseigne
+        </th>
+        <td>
+          {{ brand?.name ?? '-' }}
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Activite du bail
+        </th>
+        <td :class="{ editable }">
+          <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                onDataFieldInput('companyActivity', $event.target.innerText)
+              ">{{ data.companyActivity }}</span>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Changement d'enseigne
+        </th>
+        <td>Accord du bailleur obligatoire</td>
+      </tr>
+    </table>
+  </section>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      CONTRAT
+    </header>
+    <table class="sqft-data-table">
+      <tr>
+        <th role="row">
+          Durée du contrat
+        </th>
+        <td :class="{ editable }">
+          <span :contenteditable="editable" @keydown="preventLineBreaks"
+            @input="onDataFieldInput('Durée du contrat', $event.target.innerText)">
+            {{ data['Durée du contrat'] }}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Prévision Livraison du local
+        </th>
+        <td :class="{ editable }">
+          <input v-if="editable" type="date" style="color: black" :value="data['livraison du local']" @input="
+                onDataFieldInput('livraison du local', $event.target.value)
+              ">
+          <span v-else>
+            {{ formatDateShort(data['livraison du local']) }}
+          </span>
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      LOYERS ET CHARGES
+    </header>
+    <table class="sqft-data-table">
+      <thead>
+        <th />
+        <th>Prix au m2</th>
+        <th>Prix GLA totale</th>
+      </thead>
+      <tbody>
+        <tr v-for="(monthly, index) of data.rent" :key="index">
+          <td role="row">
+            {{ data.rent.length > 1 ? `Loyer Année ${index + 1} en ${currency} / mois` : `Loyer Année en
+            ${currency} / mois` }}
+          </td>
+          <td :class="{ editable }">
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput(
+                    'rent',
+                    index,
+                    $event.target.innerText,
+                  )
+                ">
+              {{ data?.rent[index] }}
+            </span>
+            <small>{{ currency }} / HC / HT / Mois</small>
+          </td>
+          <td>
+            {{
+            moneyAmount(getMonthly(data?.rent[index])).replace(
+            /\sMAD$/, "").replace(/\sEUR$/, "")
+            }}
+            <small>{{ currency }} / HC / HT / Mois</small>
+            <VBtn v-if="editable" class="float-right hide-in-print" icon size="x-small" color="default" variant="text"
+              @click="removeRow('rent', index)">
+              <VIcon size="32" icon="tabler-square-rounded-minus" />
+            </VBtn>
+          </td>
+        </tr>
+        <tr v-if="editable">
+          <td role="row" />
+          <td>
+            <VBtn icon size="small" color="default" variant="text" @click="addRow('rent')">
+              <VIcon size="32" icon="tabler-square-rounded-plus" />
+            </VBtn>
+          </td>
+          <td />
+        </tr>
+
+        <tr v-for="(monthly, index) of data.common" :key="index">
+          <td role="row">
+            {{ `Charges communes année ${index + 1} en ${currency} / mois` }}
+          </td>
+          <td :class="{ editable }">
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput(
+                    'common',
+                    index,
+                    $event.target.innerText,
+                  )
+                ">
+              {{ data?.common[index] }}
+            </span>
+            <small>{{ currency }} / HC / HT / Mois</small>
+          </td>
+          <td>
+            {{
+            moneyAmount(getMonthly(data?.common[index])).replace(
+            /\sMAD$/,
+            "",
+            ).replace(/\sEUR$/, "")
+            }}
+            <small>{{ currency }} / HC / HT / Mois</small>
+          </td>
+        </tr>
+        <tr v-for="(monthly, index) of data.common" :key="index">
+          <td role="row">
+            {{
+            `Montant total mensuel (loyer + charges) année ${index + 1
+            } en ${currency} / mois`
+            }}
+          </td>
+          <td>
+            {{ parseFloat(data?.rent[index]) + parseFloat(data?.common[index]) }}
+            <small>{{ currency }} / HC / HT / Mois</small>
+          </td>
+          <td>
+            {{
+            moneyAmount(
+            getMonthly(parseFloat(data?.rent[index]) + parseFloat(data?.common[index])),
+            ).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}
+            <small>{{ currency }} / HC / HT / Mois</small>
+          </td>
+        </tr>
+
+        <tr>
+          <td role="row">
+            Indexation du loyer
+          </td>
+          <td :class="{ editable }" colspan="100%">
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput('indexPercent', $event.target.innerText)
+                ">{{ data.indexPercent }}</span>% <small>à partir du 1er jour du début de la 4eme année</small>
+          </td>
+        </tr>
+        <tr>
+          <td role="row">
+            Indexation charges
+          </td>
+          <td :class="{ editable }" colspan="100%">
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput('indexPercent1', $event.target.innerText)
+                ">{{ data.indexPercent1 }}</span>% <small>à partir du 1er jour du début de la 4eme année</small>
+          </td>
+        </tr>
+        <tr>
+          <td role="row">
+            Date de facture du 1er loyer
+          </td>
+          <td :class="{ editable }" colspan="100%">
+            <span :contenteditable="editable" @keydown="preventLineBreaks"
+              @input="onDataFieldInput('monthOne', $event.target.innerText)">
+              {{ data.monthOne }}
+            </span>
+            <small>mois apres la signature du PV de livraison</small>
+          </td>
+        </tr>
+        <tr>
+          <td role="row">
+            Franchise de loyer
+          </td>
+          <td :class="{ editable }" colspan="100%">
+            <span :contenteditable="editable" @keydown="preventLineBreaks"
+              @input="onDataFieldInput('monthTwo', $event.target.innerText)">
+              {{ data.monthTwo }}
+            </span>
+            <small>mois de franchises de loyer pendant la période travaux</small>
+          </td>
+        </tr>
+        <tr v-for="(obj, index) of data.other">
+          <th role="row" :class="{ editable }">
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput(
+                    'other',
+                    index,
+                    'title',
+                    $event.target.innerText,
+                  )
+                ">
+              {{ data?.other[index]?.title }}
+            </span>
+          </th>
+          <td :class="{ editable }" colspan="100%">
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput(
+                    'other',
+                    index,
+                    'text1',
+                    $event.target.innerText,
+                  )
+                ">
+              {{ data?.other[index]?.text1 }}
+            </span>
+            <VBtn v-if="editable" class="float-right hide-in-print" icon size="x-small" color="default" variant="text"
+              @click="removeRow('other', index)">
+              <VIcon size="32" icon="tabler-square-rounded-minus" />
+            </VBtn>
+          </td>
+        </tr>
+        <tr v-if="editable" class="hide-in-print">
+          <td />
+          <td align="center">
+            <VBtn icon size="small" color="default" variant="text" @click="addRow('other')">
+              <VIcon size="32" icon="tabler-square-rounded-plus" />
+            </VBtn>
+          </td>
+          <td />
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      IMPOTS ET TAXES - GROS TRAVAUX
+    </header>
+    <table class="sqft-data-table">
+      <tr>
+        <th role="row">
+          Taxe sur Services Communaux
+        </th>
+        <td>A la charge du Preneur à</td>
+        <td :class="{ editable }">
+          <strong>
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput('tax', $event.target.innerText)
+                ">{{ data?.tax }}</span>%
+          </strong>
+          du loyer HT, soit mensuellement sur la 1ère année
+        </td>
+        <td>
+          <strong>
+            {{
+            moneyAmount(
+            getMonthly(parseFloat(data?.rent[0])) * (parseFloat(data?.tax) / 100),
+            ).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}</strong>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Autres impôts et taxes de toutes natures, existants ou futurs
+        </th>
+        <td>
+          A la charge du Preneur <br><small>(soit la TVA actuellement)</small>
+        </td>
+        <td :class="{ editable }">
+          <strong>
+            <span :contenteditable="editable" @keydown="preventLineBreaks" @input="
+                  onDataFieldInput(
+                    'otherTax',
+                    $event.target.innerText,
+                  )
+                ">{{ data?.otherTax }}</span>%
+          </strong>
+          du loyer + charges, soit mensuellement sur la 1ère année
+        </td>
+        <td>
+          <strong>{{
+            moneyAmount(
+            getMonthly(parseFloat(data?.rent[0]) + parseFloat(data?.common[0]))
+            * (parseFloat(data?.otherTax) / 100),
+            ).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}</strong>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Gros travaux : Gros œuvre (murs extérieurs)
+        </th>
+        <td colspan="100%">
+          A la charge du Bailleur
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      IMPOTS ET TAXES - GROS TRAVAUX
+    </header>
+    <table class="sqft-data-table">
+      <tr>
+        <th role="row">
+          <strong>A la charge du Bailleur</strong><br>
+          Le dépôt de garantie sera actualisé en fonction du loyer <br>
+          (ça devrait correspondre toujours à 3 mois de loyer + charges)
+        </th>
+        <td>
+          <strong>{{
+            moneyAmount(
+            getMonthly(parseFloat(data?.rent[0]) + parseFloat(data?.common[0])) * 3,
+            ).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}</strong>
+          <small>{{ currency }} HT soit</small>
+        </td>
+        <td>l'équivalent de trois mois de loyer + charges payable HT</td>
+      </tr>
+      <tr>
+        <th role="row">
+          <strong>Paticipation aux frais de pilotage des travaux du preneur (RTM /
+            Pilote B)</strong><br>
+          Important pour coordonner vos travaux avec ceux de notre chantier.
+          Objectif: <br>
+          orienter vos aménageurs pour être en ligne avec les prescriptions
+          techniques du projets et l'évolution des installations
+        </th>
+        <td :class="{ editable }">
+          <strong>
+            <span :contenteditable="editable" @keydown="preventLineBreaks"
+              @input="onDataFieldInput('pilotage', $event.target.innerText)">{{ data?.pilotage }}</span>
+          </strong>
+          <small>{{ currency }} HT soit</small>
+        </td>
+        <td>
+          <strong>
+            {{ moneyAmount(parseFloat(data?.pilotage) * 1.2).replace(/\sMAD$/, "").replace(/\sEUR$/, "") }}
+          </strong>
+          <small>{{ currency }} TTC</small>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          <strong>Participation aux frais de marketing préouverture</strong><br>
+          Il s'agit de communication visant à promouvoir la première ouverture
+          du projet au public dans son ensemble. Tous les locataires y
+          participent y compris le Bailleur.
+        </th>
+        <td :class="{ editable }">
+          <strong>
+            <span :contenteditable="editable" @keydown="preventLineBreaks"
+              @input="onDataFieldInput('marketing', $event.target.innerText)">{{ data?.marketing }}</span>
+          </strong>
+          <small>{{ currency }} HT soit</small>
+        </td>
+        <td>
+          <strong>{{
+            moneyAmount(parseFloat(data?.marketing) * 1.2).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}</strong>
+          <small>{{ currency }} TTC</small>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          <strong>TOTAL INDEMNITE D'IMMOBILISATION (à verser à la
+            signature)</strong><br>
+        </th>
+        <td>
+          <strong>{{
+            moneyAmount(
+            getMonthly((parseFloat(data?.rent[0]) + parseFloat(data?.common[0])) * 3)
+            + parseFloat(data?.marketing) * 1.0
+            + parseFloat(data?.pilotage) * 1.0,
+            ).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}</strong>
+          <small>{{ currency }} HT soit</small>
+        </td>
+        <td>
+          <strong>{{
+            moneyAmount(
+            getMonthly(parseFloat(data?.rent[0]) + parseFloat(data?.common[0])) * 3
+            + parseFloat(data?.marketing) * 1.2
+            + parseFloat(data?.pilotage) * 1.2,
+            ).replace(/\sMAD$/, "").replace(/\sEUR$/, "")
+            }}</strong>
+          <small>{{ currency }} TTC</small>
+        </td>
+      </tr>
+    </table>
+  </section>
+  <section class="doc-section">
+    <header class="doc-section__header">
+      SOUS-LOCATION / GERANCE LIBRE / CESSION
+    </header>
+    <table class="sqft-data-table">
+      <tr>
+        <th role="row">
+          Sous-location
+        </th>
+        <td :class="{ editable }" colspan="2">
+          <span :contenteditable="editable" @input="onDataFieldInput('sousLocation', $event.target.innerText)">Le
+            Preneur ne peut sous-louer tout ou partie du Local.</span>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Gérance libre
+        </th>
+        <td :class="{ editable }" colspan="2">
+          <span :contenteditable="editable" @input="onDataFieldInput('gerance', $event.target.innerText)">Le Preneur ne
+            peut donner en gérance libre son fonds de
+            commerce.</span>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Cession
+        </th>
+        <td :class="{ editable }" colspan="2">
+          <span :contenteditable="editable" @input="onDataFieldInput('cession', $event.target.innerText)">Le Preneur ne
+            peut céder ses droits au Bail sauf à
+            l&#39;acquéreur de son fonds de commerce<br>(Contrat hors
+            contexte de la loi 49-16)</span>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Droit de préemption
+        </th>
+        <td :class="{ editable }" colspan="2">
+          <span :contenteditable="editable" @input="onDataFieldInput('droit', $event.target.innerText)">Le Bailleur
+            bénéficie, pendant toute la durée du Bail, d'un droit
+            de préemption portant sur<br>le fonds de commerce (s'il
+            existe).</span>
+        </td>
+      </tr>
+      <tr>
+        <th role="row">
+          Conditions spéciales
+        </th>
+        <td :class="{ editable }" colspan="2">
+          <span :contenteditable="editable" @input="onDataFieldInput('conditions', $event.target.innerText)">Le Bailleur
+            devra préparer un local qui sera livré en brut de
+            béton, fluides en attentes et<br>vitrines non posées.</span>
+        </td>
+      </tr>
+    </table>
+  </section>
+  <footer>
+    <p style="color: red; font-weight: 600">
+      OFFRE SOUMISE A VALIDATION DES INSTANCES DE GOUVERNANCE DU BAILLEUR
+    </p>
+    <table class="sqft-data-table borderless">
+      <tr>
+        <td>
+          <em><b>Acceptation du Preneur</b></em>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <em><b>Signature & Cachet (mention de "bon pour accord")</b></em>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <em><b>Mme/M..</b></em>
+          <span style="font-family: Arial, Helvetica, sans-serif;">_____________________________________________</span>
+        </td>
+      </tr>
+      <tr style="height: 80px">
+        <td />
+      </tr>
+    </table>
+  </footer>
+</div>

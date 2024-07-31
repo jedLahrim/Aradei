@@ -1,0 +1,1966 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddLogoDto {
+  floorId: String!
+  html: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: UserProfile!
+}
+
+type Booking {
+  brand: Brand
+  company: Company
+  contract: Document!
+  contractComplete: Boolean!
+  contractCompletedAt: DateTime
+  createdAt: DateTime!
+  creator: UserProfile!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  documents: [Document!]
+  id: String!
+  invoiceEdits: [InvoiceEdit!]
+  isManual: Boolean
+  mediaProposals: [MediaProposal!]
+  notes: String
+  parentBookingId: String
+  proposalEdits: [ProposalEdit!]
+  proposalSent: Boolean!
+  proposalSentAt: DateTime!
+  prospect: Contact!
+  quoteEdits: [QuoteEdit!]
+  renewalSent: Boolean!
+  renewed: Boolean!
+  signedAt: DateTime
+  status: Float!
+  talks: [Talk!]
+  total: Float
+  type: String!
+  units: [Unit!]
+  validatedAt: DateTime
+  validations: [Validation!]
+  validator: UserProfile
+}
+
+type BookingList {
+  bookings: [Booking!]!
+  totalBookings: Float!
+}
+
+input BookingUnitData {
+  id: String!
+  price: Float!
+  surface: Float!
+  unitId: String!
+}
+
+type Brand {
+  bgBanner: String
+  bookings: [Booking!]!
+  companies: [Company!]!
+  contacts: [Contact!]
+  createdAt: DateTime!
+  description: String!
+  id: String!
+  linkedin: String
+  logo: String!
+  logoPlan: String
+  mix: Mix
+  name: String!
+  pictures: [Picture!]
+  products: String!
+  requests: [Request!]
+  source: String!
+  status: String!
+  techDocs: [Document!]!
+  website: String
+}
+
+type BrandCount {
+  brands: Float!
+}
+
+type BrandList {
+  brands: [Brand!]!
+  totalBrands: Float!
+}
+
+input BulkUnitLogoMetadataDto {
+  placeholders: [UnitLogoMetadataDto!]!
+}
+
+type Category {
+  id: Float!
+  name: String!
+  units: Unit!
+}
+
+type Client {
+  emailFrom: String!
+  emailFromName: String!
+  legal: ClientLegal!
+  media: ClientMedia!
+  name: String!
+  primaryColor: String!
+  process: JSON!
+  timezone: String!
+}
+
+type ClientLegal {
+  address: String
+  bankIBAN: String
+  bankName: String
+  bankSWIFT: String
+  capital: Float
+  city: String
+  contact: String
+  corAddress: String
+  hq: String
+  ice: String
+  if: String
+  name: String
+  patent: String
+  rc: String
+  zip: String
+}
+
+input ClientLegalInput {
+  address: String
+  bankIBAN: String
+  bankName: String
+  bankSWIFT: String
+  capital: Float
+  city: String
+  contact: String
+  corAddress: String
+  hq: String
+  ice: String
+  if: String
+  name: String
+  patent: String
+  rc: String
+  zip: String
+}
+
+type ClientMedia {
+  logo: String!
+  logoLight: String!
+  proposal: String!
+}
+
+type CommercialDocument {
+  Floor: Floor
+  RetailCenter: RetailCenter
+  createdAt: DateTime!
+  filePath: String!
+  id: String
+  name: String!
+  type: String
+  updatedAt: DateTime!
+}
+
+type Company {
+  _count: BrandCount
+  address: String
+  bgBanner: String
+  bookings: [Booking!]
+  brands: [Brand!]
+  capital: String
+  city: String
+  cityRC: String
+  companyGroup: CompanyGroup
+  country: String
+  createdAt: DateTime!
+  creator: UserProfile!
+  creatorId: String!
+  currency: String
+  customerCode: String
+  dateFormat: String
+  description: String
+  documents: [Document!]
+  email: String!
+  ice: String
+  id: String!
+  instragram: String
+  isValidated: Boolean!
+  linkedIn: String
+  logo: String
+  mainColor: String
+  managerID: String
+  managerName: String
+  managerPosition: String
+  managerTitle: String
+  name: String!
+  patente: String
+  phone: String!
+  rc: String
+  region: String
+  requests: [Request!]
+  source: String
+  status: String
+  taxIF: String
+  tva: String
+  type: Float!
+  units: Unit!
+  web: String
+  zip: String
+}
+
+type CompanyGroup {
+  companies: [Company!]
+  createdAt: DateTime!
+  id: String!
+  name: String!
+}
+
+type CompanyGroupList {
+  companyGroups: [CompanyGroup!]!
+  total: Float!
+}
+
+type CompanyList {
+  companies: [Company!]!
+  totalCompanies: Float!
+}
+
+type CompanyStats {
+  booked: Float!
+  deals: Float!
+  pipe: Float!
+  revenue: Float!
+}
+
+input ConfirmContractDto {
+  documentId: String!
+  paiementContractFilePath: String
+  proposalId: String!
+  signedContractFilePath: String
+}
+
+input ConfirmHOTDto {
+  documentId: String
+  proposalId: String!
+  signedHOTFilePath: String!
+}
+
+input ConfirmInstallationDto {
+  documentId: String
+  proposalId: String!
+  signedInstallationFilePath: String!
+}
+
+input ConfirmQuoteDto {
+  paiementQuoteFilePath: String
+  proposalId: String!
+  purchasedOrderFilePath: String
+  quoteId: String
+  signedGeneralConditionsFilePath: String
+  signedQuoteFilePath: String
+}
+
+type Contact {
+  bookings: [Booking!]
+  brands: [Brand!]!
+  cin: String
+  createdAt: DateTime!
+  creator: UserProfile!
+  email: String!
+  firstname: String!
+  hasAccount: Boolean!
+  histories: [History!]
+  id: String!
+  isArchived: Boolean!
+  mobile: String
+  name: String!
+  phone: String!
+  position: String!
+  requests: [Request!]
+  source: String!
+  title: String!
+}
+
+type ContactList {
+  contacts: [Contact!]!
+  totalContacts: Float!
+}
+
+type CountByEntityStats {
+  count: Float!
+  id: String!
+  name: String!
+}
+
+type CountNewField {
+  count: Float!
+  new: Float!
+}
+
+input CreateBookingDto {
+  brandId: String!
+  companyId: String!
+  contactId: String!
+  dataObj: String
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  notes: String
+  parentBookingId: String
+  proposalEdits: [ProposalEditDto!]
+  type: String!
+  units: [String!]!
+}
+
+input CreateBrandDto {
+  companyId: String
+  description: String
+  logo: String
+  mixId: Float
+  name: String!
+  pictures: [String!]
+  products: String
+}
+
+input CreateBulkPictureDto {
+  pictures: [CreatePictureDto!]!
+}
+
+input CreateBulkUnitDto {
+  alias: String!
+  floorId: String!
+  mainPicture: String
+  rentType: Float!
+  surface: Float!
+  unitId: String!
+}
+
+input CreateBulkUnitListDto {
+  units: [CreateBulkUnitDto!]!
+}
+
+input CreateComDoc {
+  filePath: String!
+  name: String!
+  parent: String
+  parentId: String
+  type: String!
+}
+
+input CreateCompanyDto {
+  address: String
+  bgBanner: String
+  city: String
+  country: String
+  customerCode: String
+  email: String!
+  groupId: String
+  ice: String
+  name: String!
+  phone: String!
+  region: String
+  request: String
+  source: String
+  type: Int!
+  zip: String
+}
+
+input CreateCompanyGroupDto {
+  companyId: String
+  name: String!
+}
+
+input CreateContactDto {
+  brandId: String
+  cin: String
+  email: String!
+  firstname: String!
+  mobile: String
+  name: String!
+  phone: String
+  position: String
+  title: String!
+}
+
+input CreateConventionDto {
+  bookingId: String!
+  html: String!
+}
+
+input CreateDocumentDto {
+  attachTo: String!
+  bookingId: String
+  companyId: String
+  dataObj: String
+  filePath: String!
+  isValidated: Boolean
+  label: String
+  name: String
+  quoteId: String
+  type: String!
+  unitId: String
+}
+
+input CreateForecastDto {
+  name: String!
+  type: String!
+  year: DateTime!
+}
+
+input CreateManualBookingDto {
+  brandId: String!
+  companyId: String!
+  contactId: String!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  type: String!
+  unit: BookingUnitData!
+}
+
+input CreateMessageNotificationDto {
+  department: String!
+  emailTemplateId: Int!
+  event: String!
+  message: String!
+  name: String!
+  subject: String!
+}
+
+input CreateMixCategoryDto {
+  alias: String!
+}
+
+input CreateMixDto {
+  alias: String!
+  mixCategoryId: Int!
+}
+
+input CreateNotificationDto {
+  bookingId: String!
+  message: String!
+  type: String!
+  users: [String!]
+}
+
+input CreatePictureDto {
+  brandId: String
+  filePath: String!
+  retailCenterId: String
+  unitId: String
+}
+
+input CreateQuoteEditDto {
+  bookingId: String!
+  edits: [EditDto!]!
+  notes: String
+}
+
+input CreateRequestDto {
+  brandId: String!
+  companyId: String!
+  contactId: String!
+  message: String!
+}
+
+input CreateRetailCenterDto {
+  address: String!
+  alias: String
+  annualVisitors: Int
+  bankIBAN: String!
+  bankName: String!
+  bankSWIFT: String!
+  capital: String
+  city: String!
+  country: String!
+  description: String!
+  flagShip: String
+  headquarters: String!
+  ice: String
+  informationContact: String
+  legalPersonCityRC: String!
+  legalPersonFirstname: String!
+  legalPersonName: String!
+  legalPersonPosition: String!
+  legalPersonRC: String!
+  legalPersonTitle: String!
+  mixMerchandising: String
+  name: String!
+  openingYear: Int!
+  ownerEntity: String!
+  parkingSpaces: Int
+  patente: String
+  picture: String!
+  socialMediaStats: String
+  specialty: Int!
+  specialtyLeasing: String
+  surface: Int!
+  taxIF: String
+  type: Int!
+  workHours: String
+  zip: String
+}
+
+input CreateTalkDto {
+  bookingId: String!
+  content: String!
+  documentId: String
+  documentLink: String
+  recipientId: String
+}
+
+input CreateUnitDto {
+  alias: String!
+  bgBanner: String
+  categoryId: Float
+  dayPrice: Float
+  dependency: Boolean!
+  depthMeters: Float!
+  description: String!
+  features: [Float!]
+  floorId: String!
+  mezzanine: Float
+  mixId: Float
+  monthPrice: Float
+  picture: String
+  rentType: Float!
+  specialTerms: String
+  specialtyIds: [Float!]
+  sqmetersPrice: Float
+  status: Float!
+  storage: Float
+  surface: Float!
+  terrasse: Float
+  unitId: String!
+  videoFormat: String
+  videoLength: String
+  videoUrl: String
+  virtualVisitUrl: String
+  weekPrice: Float
+  widthMeters: Float!
+}
+
+input CreateUnitLogoMetadataDto {
+  floorId: String!
+  height: Float!
+  logo: String
+  rotation: Float!
+  scale: Float!
+  unitId: String!
+  width: Float!
+  x: Float!
+  y: Float!
+}
+
+input CreateUnitsGrpDto {
+  alias: String!
+  categoryId: Float
+  dayPrice: Float
+  dependency: Boolean!
+  depthMeters: Int!
+  description: String!
+  features: [Float!]
+  floorId: String!
+  mixId: Float
+  monthPrice: Float
+  picture: String
+  rentType: Int!
+  specialTerms: String
+  specialtyIds: [Float!]
+  sqmetersPrice: Float
+  status: Float!
+  surface: Int!
+  unitId: String!
+  unitsIds: [String!]!
+  videoFormat: String
+  videoLength: String
+  weekPrice: Float
+  widthMeters: Int!
+}
+
+input CreateUserProfileDto {
+  email: String!
+  firstName: String!
+  fromContactId: String
+  jobTitle: String!
+  mobilePhone: String
+  name: String!
+  phone: String
+  picture: String
+  retailCenters: [String!]!
+  roleId: Float!
+  userId: String
+}
+
+input CreateUserRoleDto {
+  id: Float!
+  name: String!
+  title: String!
+}
+
+input CreateValidationDto {
+  bookingId: String
+  documentId: String
+  documentLink: String
+  kindId: Float!
+  mediaProposalId: String
+  quoteId: String
+}
+
+type DateRange {
+  dateFrom: DateTime!
+  dateTo: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Document {
+  booking: Booking
+  brand: Brand
+  company: Company
+  createdAt: DateTime!
+  creator: UserProfile!
+  dataObj: String
+  filePath: String
+  floor: Floor
+  id: String
+  isAccepted: Boolean
+  isValidated: Boolean
+  label: String
+  name: String
+  needsValidation: Boolean
+  pages: [Page!]
+  retailCenter: RetailCenter
+  sent: Boolean!
+  sentAt: DateTime!
+  talks: [Talk!]
+  type: String!
+  unit: Unit
+  updatedAt: DateTime!
+  validation: Validation
+  validators: [UserProfile!]!
+}
+
+type DocumentList {
+  documents: [Document!]!
+  totalDocuments: Float!
+}
+
+input EditDto {
+  bookingId: String
+  dateFrom: DateTime
+  dateTo: DateTime
+  notes: String
+  quoteId: String
+  unitId: String!
+  unitPrice: Float!
+  unitSurface: Float!
+}
+
+type EmailTemplate {
+  createdAt: DateTime!
+  footerImage: String!
+  headerImage: String!
+  id: Float!
+  linkWebsite: String!
+  messageNotifications: [MessageNotification!]
+  name: String!
+  signature: String!
+}
+
+type EntityStats {
+  today: Float!
+  total: Float!
+}
+
+type EvolutionByEntityStats {
+  evolution: Float!
+  id: String!
+  name: String!
+}
+
+type Feature {
+  alias: String!
+  id: Float!
+  units: [Unit!]
+}
+
+input FilterBrandsDto {
+  query: String
+  skip: Float = 0
+  source: String
+  status: String
+  take: Float = 4
+}
+
+input FilterCompanyDto {
+  query: String
+  skip: Float = 0
+  take: Float = 4
+  type: Int
+}
+
+input FilterCompanyGroupDto {
+  companyId: String
+  contactId: String
+  query: String
+  skip: Float = 0
+  take: Float = 4
+}
+
+input FilterDateDto {
+  from: DateTime!
+  to: DateTime!
+}
+
+input FilterUnitsDto {
+  assets: [String!]
+  brands: [String!]
+  companies: [String!]
+  dateRange: [String!]
+  dependencies: [Float!]
+  floors: [String!]
+  gla: [Float!]
+  mixes: [Float!]
+  query: String
+  retailCenter: String
+  skip: Float = 0
+  status: Float
+  take: Float = 4
+  types: [Float!]
+}
+
+type Floor {
+  commercialDocs: [CommercialDocument!]!
+  documents: [Document!]!
+  id: String!
+  name: String!
+  retailCenter: RetailCenter!
+  retailCenterId: String!
+  svgBluePrint: String!
+  units: [Unit!]!
+}
+
+type FloorCount {
+  documents: Float!
+  floors: Float!
+}
+
+type Forecast {
+  createdAt: DateTime!
+  id: Float!
+  longtermForecasts: [LongtermForecasts!]
+  monthlyForecasts: [MonthlyForecasts!]
+  name: String!
+  type: String!
+  year: DateTime!
+}
+
+input GetBookingsDto {
+  asset: String
+  brand: String
+  company: String
+  contact: String
+  creator: String
+  hasPayment: Boolean
+  query: String
+  skip: Float = 0
+  sortType: String
+  status: Float
+  take: Float = 4
+  type: String
+}
+
+input GetContactsDto {
+  query: String
+  skip: Float = 0
+  source: String
+  take: Float = 4
+}
+
+input GetDocumentsDto {
+  company: String
+  retailCenter: String
+  skip: Float = 0
+  take: Float = 4
+  type: [String!]
+  unit: String
+}
+
+input GetMallsDto {
+  city: String
+  projectId: String
+  query: String
+  type: Float
+}
+
+input GetQuotesDto {
+  bookingType: String
+  brandIds: [String!]
+  filterDate: FilterDateDto
+  query: String
+  skip: Float
+  status: Float
+  take: Float
+}
+
+input GetTalksDto {
+  bookingId: String
+  documentId: String
+  documentType: String
+  toId: String
+}
+
+input GetTeamDto {
+  roleId: Float
+}
+
+input GetUnitsDto {
+  floor: String
+  mix: Float
+  query: String
+  rentType: Float
+  retailCenter: String
+  skip: Float = 0
+  status: Float
+  take: Float = 4
+}
+
+input GetUnitsLogoMetadataDto {
+  floorId: String
+  unitId: String
+}
+
+input GetValidationsDto {
+  kind: [Int!]
+  skip: Float = 0
+  take: Float = 4
+}
+
+type History {
+  action: String!
+  booking: Booking
+  contact: Contact
+  createdAt: DateTime!
+  creator: UserProfile!
+  documentHistoryId: String
+  id: String!
+  unit: Unit
+}
+
+input InputUnitFloorAndDateSearch {
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  floorId: String
+}
+
+type Invoice {
+  createdAt: DateTime!
+  id: String!
+  isAccepted: Boolean!
+  isValidated: Boolean!
+  notes: String
+  sentAt: DateTime!
+  status: Float!
+  total: Float!
+}
+
+type InvoiceEdit {
+  booking: Booking!
+  bookingId: String!
+  createdAt: DateTime!
+  creator: UserProfile!
+  dateFrom: DateTime
+  dateTo: DateTime
+  id: String!
+  invoice: Invoice
+  invoiceId: String!
+  unitId: String!
+  unitPrice: Float!
+  unitSurface: Float!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type LeasingTimeStats {
+  count: Float!
+  days: Float!
+}
+
+input LoginDto {
+  email: String!
+  password: String!
+}
+
+type LongtermForecasts {
+  id: String!
+  retailCenter: RetailCenter
+  retailCenterId: String!
+  retailCenterStatus: String
+  unitsForecasts: [UnitsForecasts!]
+}
+
+type Media {
+  fileOrder: Float!
+  filePath: String!
+  fileType: String!
+  id: String!
+}
+
+input MediaDto {
+  filePath: String!
+  fileType: String!
+}
+
+type MediaProposal {
+  booking: Booking
+  createdAt: DateTime!
+  creator: UserProfile!
+  id: String!
+  medias: [Media!]!
+  unit: Unit!
+  validation: Validation
+}
+
+input MediaProposalDto {
+  bookingId: String!
+  media: [MediaDto!]!
+  unitId: String!
+}
+
+type MessageNotification {
+  createdAt: DateTime!
+  department: String!
+  emailTemplate: EmailTemplate!
+  event: String!
+  id: Float!
+  message: String!
+  name: String!
+  subject: String!
+  toProspect: Boolean!
+  toSender: Boolean!
+  tos: [UserRole!]!
+}
+
+type Mix {
+  MixCategory: MixCategory
+  alias: String!
+  brands: [Brand!]!
+  id: Float!
+  units: [Unit!]!
+}
+
+type MixCategory {
+  alias: String!
+  color: String
+  i18nAlias: String
+  icon: String
+  id: Float!
+  subMixes: [Mix!]
+}
+
+type MonthRevenuesStats {
+  currentMonthsGroup: [Float!]!
+  previousMonthsGroup: [Float!]!
+}
+
+type MonthlyForecasts {
+  april: String!
+  august: String!
+  december: String!
+  february: String!
+  id: String!
+  january: String!
+  july: String!
+  june: String!
+  march: String!
+  may: String!
+  november: String!
+  october: String!
+  retailCenter: RetailCenter!
+  retailCenterId: String!
+  september: String!
+}
+
+type Mutation {
+  addLogo(data: AddLogoDto!): Boolean!
+  addMedia(data: MediaProposalDto!): Booking!
+  addUnitsToForecast(data: addUnitsToForecastDto!): Boolean!
+  bulkUpdateUnitLogoMetadata(data: BulkUnitLogoMetadataDto!): [UnitLogoMetadata!]!
+  checkToken(token: String!): AuthPayload!
+  completeValidation(documentId: String, documentLink: String, validationId: String!): Validation!
+  confirmContract(data: ConfirmContractDto!): Booking!
+  confirmConvention(data: ConfirmContractDto!): Booking!
+  confirmHOT(data: ConfirmHOTDto!): Document!
+  confirmInstallation(data: ConfirmInstallationDto!): Document!
+  confirmInvoice(data: ConfirmQuoteDto!): Booking!
+  confirmQuote(data: ConfirmQuoteDto!): Booking!
+  createBooking(data: CreateBookingDto!): Booking!
+  createBrand(data: CreateBrandDto!): Brand!
+  createBulkUnit(data: CreateBulkUnitListDto!): Boolean!
+  createCommercialDoc(data: CreateComDoc!): CommercialDocument!
+  createCompany(data: CreateCompanyDto!): Company!
+  createCompanyGroup(data: CreateCompanyGroupDto!): CompanyGroup!
+  createContact(data: CreateContactDto!): Contact!
+  createContractPdf(quoteId: String!): Document!
+  createConvention(data: CreateConventionDto!): Document!
+  createDocument(data: CreateDocumentDto!): Document!
+  createForecast(data: CreateForecastDto!): Forecast!
+  createInvoiceEdit(data: CreateQuoteEditDto!): String!
+  createLontermForecast(data: CreateForecastDto!): Forecast!
+  createManualBooking(data: CreateManualBookingDto!): Booking!
+  createMessageNotification(data: CreateMessageNotificationDto!): MessageNotification!
+  createMix(data: CreateMixDto!): Mix!
+  createMixCategory(data: CreateMixCategoryDto!): MixCategory!
+  createNewPopstoresRequest(data: createNewPopstoresRequestDto!): ProspectRequest!
+  createNotification(data: CreateNotificationDto!): Notification!
+  createPictures(data: CreateBulkPictureDto!): [Picture!]!
+  createPopstoresContact(data: CreateContactDto!): Contact!
+  createPvLivraison(bookingId: String!): Document!
+  createQuoteEdit(data: CreateQuoteEditDto!): String!
+  createQuotePdf(proposalId: String!): Document!
+  createRequest(data: CreateRequestDto!): Request!
+  createRetailCenter(data: CreateRetailCenterDto!): RetailCenter!
+  createTalk(data: CreateTalkDto!): Talk!
+  createUnit(data: CreateUnitDto!): Unit!
+  createUnitLogoMetadata(data: CreateUnitLogoMetadataDto!): UnitLogoMetadata!
+  createUnitsGroup(data: CreateUnitsGrpDto!): Unit!
+  createUserRole(data: CreateUserRoleDto!): UserRole!
+  createValidation(data: CreateValidationDto!): Validation!
+  deleteBooking(id: String!): Boolean!
+  deleteBrand(id: String!): Boolean!
+  deleteCompany(companyId: String!): Company!
+  deleteCompanyGroup(id: String!): CompanyGroup!
+  deleteContact(id: String!): Boolean!
+  deleteDocument(id: String!): Boolean!
+  deleteForecast(id: Float!): Boolean!
+  deleteRequest(id: String!): Request!
+  deleteSelectedUnitsForecasts(data: deleteSelectedUnitsForecastsDto!): Boolean!
+  deleteUnitPic(picId: String!, unitId: String!): Boolean!
+  deleteUnitsLogoMetadata(id: String!): Boolean!
+  deleteUser(id: String!): Boolean!
+  detachGroupUnit(unitId: String!): Boolean!
+  login(data: LoginDto!): AuthPayload!
+  markAsRead(id: String!): Notification!
+  markRequestAsDone(id: String!): Request!
+  reactivateUser(id: String!): Boolean!
+  removeCommercialDoc(docId: String!): Boolean!
+  removeLogos(data: RemoveLogosDto!): Boolean!
+  removeMix(mixId: Int!): Mix!
+  removeMixCategory(mixCategoryId: Int!): MixCategory!
+  removePicture(id: String!): Boolean!
+  removeTalk(id: String!): Talk!
+  removeUnit(unitId: String!): Boolean!
+  removeUnitFromBooking(bookingId: String!, unitId: String!): Boolean!
+  renewBooking(data: RenewBookingDto!): Booking!
+  resetPassword(data: ResetDto!): UserProfile!
+  searchContacts(query: String!): [Contact!]!
+  sendContract(bookingId: String!, fileName: String!): Boolean!
+  sendConvention(bookingId: String!, fileName: String!): Boolean!
+  sendDocument(documentId: String!): Boolean!
+  sendInstallation(bookingId: String!, fileName: String!): Boolean!
+  sendInvoice(bookingId: String!, fileName: String!): Boolean!
+  sendMarjaneInvoice(id: String!): Invoice!
+  sendPresentation(data: sendPresentationDto!): Boolean!
+  sendProposal(bookingId: String!, fileName: String!): Booking!
+  sendQuote(id: String!): Quote!
+  sendRelance(bookingId: String!, roleId: Float!): Boolean!
+  sendResetPassword(data: SendResetDto!): AuthPayload!
+  setUnitPics(data: setUnitPicsDto!): Unit!
+  signupUser(data: CreateUserProfileDto!): AuthPayload!
+  suspendUser(id: String!): Boolean!
+  updateBrand(data: UpdateBrandDto!): Brand!
+  updateClient(updateClientInput: UpdateClientInput!): Client!
+  updateCompany(data: UpdateCompanyDto!): Company!
+  updateCompanyGroup(data: UpdateCompanyGroupDto!): CompanyGroup!
+  updateContact(data: UpdateContactDto!): Contact!
+  updateDocument(data: UpdateDocumentDto!): Document!
+  updateEmailTemplate(data: UpdateEmailTemplateDto!): EmailTemplate!
+  updateForecast(data: UpdateForecastDto!): Forecast!
+  updateLeadRelations(data: UpdateLeadRelationsDto!): Boolean!
+  updateManualBooking(data: UpdateManualBookingDto!): Booking!
+  updateMessageNotification(data: UpdateMessageNotificationDto!): MessageNotification!
+  updateMix(data: UpdateMixDto!): Mix!
+  updateMixCategory(data: UpdateMixCategoryDto!): MixCategory!
+  updatePlan(data: UpdatePlanDto!): Boolean!
+  updateRetailCenter(data: UpdateRetailCenterDto!): RetailCenter!
+  updateSpecialtyUnitsShapes: Boolean!
+  updateUnit(data: UpdateUnitDto!): Unit!
+  updateUnitLogoMetadata(data: UpdateUnitLogoMetadataDto!): UnitLogoMetadata!
+  updateUser(data: UpdateUserProfileDto!): UserProfile!
+  updateUserRole(data: UpdateUserRoleDto!): UserRole!
+  updateValidationKind(data: UpdateValidationKindDto!): ValidationKind!
+  validateCompany(companyId: String!): Company!
+  validateDocument(documentLink: String!, id: String!): Document!
+}
+
+type Notification {
+  booking: Booking
+  date: DateTime!
+  id: String!
+  isRead: Boolean!
+  message: String!
+  readers: [UserProfile!]
+  type: String!
+  users: [UserProfile!]
+}
+
+type Page {
+  content: String!
+  createdAt: DateTime!
+  document: Document!
+  id: String
+  updatedAt: DateTime!
+}
+
+type Permission {
+  action: String!
+  id: Float!
+  subject: String!
+}
+
+type Picture {
+  brand: Brand
+  filePath: String!
+  id: String!
+  retailCenter: RetailCenter
+  unit: Unit
+}
+
+input PictureDto {
+  filePath: String!
+}
+
+type Presentation {
+  brand: Brand
+  commercialDocs: [CommercialDocument!]
+  company: Company
+  contact: Contact
+  createdAt: DateTime!
+  creator: UserProfile
+  id: String!
+}
+
+type ProposalEdit {
+  booking: Booking!
+  createdAt: DateTime!
+  creator: UserProfile!
+  id: String!
+  unitId: String!
+  unitPrice: Float!
+  unitSurface: Float!
+}
+
+input ProposalEditDto {
+  unitId: String!
+  unitPrice: Float!
+  unitSurface: Float!
+}
+
+type ProspectRequest {
+  company: Company!
+  contact: Contact!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  id: String!
+  unit: Unit!
+}
+
+type Query {
+  getAllHistory(activity: String!): [History!]!
+  getAllNotifications: [Notification!]!
+  getAllPermissions: [Permission!]!
+  getAvailableUnitsByDate(data: InputUnitFloorAndDateSearch!): [Unit!]!
+  getBooking(bookingId: String!): Booking!
+  getBookings(data: GetBookingsDto!): BookingList!
+  getBrand(brandId: String!): Brand!
+  getBrandStatistics(brandId: String!): CompanyStats!
+  getBrands(data: FilterBrandsDto!): BrandList!
+  getCategories: [Category!]!
+  getClient: Client!
+  getCommercialDocs: [CommercialDocument!]!
+  getCompanies(filter: FilterCompanyDto!): CompanyList!
+  getCompany(companyId: String!): Company!
+  getCompanyGroup(id: String!): CompanyGroup!
+  getCompanyGroups(filter: FilterCompanyGroupDto!): CompanyGroupList!
+  getCompanyStatistics(companyId: String!): CompanyStats!
+  getContact(leadId: String!): Contact!
+  getContactStatistics(contactId: String!): CompanyStats!
+  getContacts(data: GetContactsDto!): ContactList!
+  getDocument(id: String!): Document!
+  getDocuments(data: GetDocumentsDto!): DocumentList!
+  getEmailTemplates: [EmailTemplate!]!
+  getExpirations(days: Float!): [Booking!]!
+  getFeatures: [Feature!]!
+  getFilteredUnits(data: FilterUnitsDto!): UnitList!
+  getForecasts: [Forecast!]!
+  getGroupUnits(unitId: String!): [Unit!]!
+  getLeadBookings: Contact!
+  getMessageNotification(name: String!): MessageNotification!
+  getMessageNotifications: [MessageNotification!]!
+  getMixCategories: [MixCategory!]!
+  getMixes: [Mix!]!
+  getMonthRevenues(assetId: String, type: String!): MonthRevenuesStats!
+  getNotifications: [Notification!]!
+  getPipe(type: String!): Float!
+  getPlan(floorId: String!): String!
+  getPopstoresPlan(floorId: String!): String!
+  getPopstoresUnit(unitId: String!): Unit!
+  getPopstoresUnits(data: GetUnitsDto!): UnitList!
+  getPresentations: [Presentation!]!
+  getQuotes(filter: GetQuotesDto!): QuoteList!
+  getReport: ReportingStats!
+  getReportsStats(assetId: String, type: String!): ReportsStats!
+  getRetailCenter(retailCenterId: String!): RetailCenter!
+  getRetailCenters(data: GetMallsDto!): [RetailCenter!]!
+  getRevenue(type: String!): Float!
+  getSpecialties: [Specialty!]!
+  getStats: Stats!
+  getTalks(data: GetTalksDto!): [Talk!]!
+  getTechDocuments: [Document!]!
+  getTenants: [Contact!]!
+  getTotalRevenue(companyId: String!): RevenuesStats!
+  getUnit(unitId: String!): Unit!
+  getUnitStatistics(unitId: String!): CompanyStats!
+  getUnitStats(rentType: Float, retailCenterId: String): UnitStats!
+  getUnitUnavailableDates(id: String!): [DateRange!]!
+  getUnits(data: GetUnitsDto!): UnitList!
+  getUnitsLogoMetadata(data: GetUnitsLogoMetadataDto!): [UnitLogoMetadata!]!
+  getUser(id: String!): UserProfile!
+  getUserRoles: [UserRole!]!
+  getUsers(data: GetTeamDto!): [UserProfile!]!
+  getValidationKinds: [ValidationKind!]!
+  getValidations(data: GetValidationsDto!): ValidationList!
+  planSvg: Boolean!
+}
+
+type Quote {
+  createdAt: DateTime!
+  creator: UserProfile
+  creatorId: String
+  edits: [QuoteEdit!]
+  exportedAt: DateTime
+  id: String!
+  isAccepted: Boolean!
+  isValidated: Boolean!
+  notes: String
+  sentAt: DateTime!
+  status: Float!
+  total: Float!
+  validation: Validation
+}
+
+type QuoteEdit {
+  booking: Booking
+  bookingId: String!
+  createdAt: DateTime!
+  creator: UserProfile
+  creatorId: String
+  dateFrom: DateTime
+  dateTo: DateTime
+  id: String!
+  quote: Quote
+  quoteId: String
+  unitId: String!
+  unitPrice: Float!
+  unitSurface: Float!
+}
+
+type QuoteList {
+  quotes: [Quote!]!
+  total: Float!
+}
+
+input RemoveLogosDto {
+  floorId: String!
+  ids: [String!]!
+}
+
+input RenewBookingDto {
+  dataObj: String
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  monthPrice: Float
+  notes: String
+  parentBookingId: String!
+  surface: Float
+}
+
+type ReportingStats {
+  AverageLeasingTime: [LeasingTimeStats!]!
+  RevenueMedia: [TotalByEntityStats!]!
+  RevenueMediaEvolution: [EvolutionByEntityStats!]!
+  RevenueStand: [TotalByEntityStats!]!
+  RevenueStandVSMedia: SpecialtyRevenueStats!
+  RevenueStandsEvolution: [EvolutionByEntityStats!]!
+  SpecialtyDeals: [CountByEntityStats!]!
+  SpecialtyLeasingPerformance: SpecialtyRevenuesStats!
+  TurnoverByAsset: [TotalByEntityStats!]!
+  TurnoverByMix: [TotalByEntityStats!]!
+}
+
+type ReportsStats {
+  bookings: TotalCountField!
+  contracts: TotalCountField!
+  deals: TotalCountField!
+  expirations: Float!
+  hots: TotalCountField!
+  leads: CountNewField!
+}
+
+type Request {
+  brand: Brand!
+  company: Company!
+  contact: Contact!
+  createdAt: DateTime!
+  id: String!
+  isDone: Boolean!
+  message: String!
+}
+
+input ResetDto {
+  password: String!
+  userId: String!
+}
+
+type RetailCenter {
+  UserProfile: [UserProfile!]
+  _count: FloorCount
+  address: String!
+  addressCorrespondance: String
+  alias: String
+  annualVisitors: Float
+  areaMap: String
+  bankIBAN: String
+  bankName: String
+  bankSWIFT: String
+  bookings: [Booking!]
+  capital: String
+  city: String!
+  commercialDocs: [CommercialDocument!]
+  country: String!
+  createdAt: DateTime!
+  demography: String
+  description: String!
+  documents: [Document!]
+  flagShip: String
+  floors: [Floor!]
+  headquarters: String!
+  ice: String
+  id: String!
+  informationContact: String
+  legalPersonCityRC: String!
+  legalPersonFirstname: String!
+  legalPersonName: String!
+  legalPersonPosition: String
+  legalPersonRC: String!
+  legalPersonTitle: String!
+  logo: String!
+  mixMerchandising: String
+  name: String!
+  openingYear: Float!
+  ownerEntity: String!
+  parkingSpaces: Float
+  patente: String
+  picture: String!
+  pictures: [Picture!]
+  socialMediaStats: String
+  specialty: Float!
+  specialtyLeasing: String
+  surface: Float!
+  taxIF: String
+  type: Float!
+  updatedAt: DateTime!
+  workHours: String
+  zip: String
+}
+
+type RevenuesStats {
+  total: Float!
+  totalLongTermRevenue: Float!
+  totalMediaRevenue: Float!
+  totalSpecialtyRevenue: Float!
+}
+
+input SendResetDto {
+  email: String!
+}
+
+type Specialty {
+  alias: String!
+  id: Float!
+  units: [Unit!]!
+}
+
+type SpecialtyRevenueStats {
+  mediaRevenues: Float!
+  temporaryRevenues: Float!
+}
+
+type SpecialtyRevenuesStats {
+  mediaRevenues: [Float!]!
+  temporaryRevenues: [Float!]!
+}
+
+type Stats {
+  bookings: EntityStats!
+  deals: EntityStats!
+  expirations: EntityStats!
+  leads: EntityStats!
+}
+
+type Talk {
+  booking: Booking
+  content: String!
+  createdAt: DateTime!
+  document: Document
+  from: UserProfile!
+  id: String!
+  to: UserProfile
+}
+
+type TotalByEntityStats {
+  id: String!
+  name: String!
+  total: Float!
+}
+
+type TotalCountField {
+  count: Float!
+  total: Float!
+}
+
+type Unit {
+  UnitsForecasts: [UnitsForecasts!]
+  _count: UnitAttachedCount
+  alias: String!
+  bgBanner: String
+  bookings: [Booking!]!
+  category: Category
+  dayPrice: Float!
+  dependency: Boolean!
+  depth: Float!
+  description: String!
+  documents: [Document!]!
+  facadeLength: Float
+  features: [Feature!]
+  floor: Floor!
+  floorId: String!
+  histories: [History!]
+  id: String!
+  isGroup: Boolean!
+  mainPicture: String!
+  maxHeight: Float
+  measurementUnit: String!
+  mezzanine: Float
+  mix: Mix
+  monthPrice: Float
+  pictures: [Picture!]
+  qty: Float
+  rentType: Float!
+  specialTerms: String!
+  specialities: [Specialty!]
+  sqMeterPrice: Float
+  storage: Float
+  surface: Float
+  terrasse: Float
+  unitId: String!
+  unitLogoMetadata: UnitLogoMetadata
+  videoFormat: String
+  videoLength: String
+  videoUrl: String
+  virtualVisitUrl: String
+  weekPrice: Float
+  width: Float!
+}
+
+type UnitAttachedCount {
+  bookings: Float!
+  documents: Float!
+  negos: Float!
+}
+
+type UnitList {
+  totalUnits: Float!
+  units: [Unit!]!
+}
+
+type UnitLogoMetadata {
+  floor: Floor
+  floorId: String!
+  height: Float!
+  id: String!
+  logo: String
+  rotation: Float!
+  scale: Float!
+  unit: Unit
+  unitId: String!
+  width: Float!
+  x: Float!
+  y: Float!
+}
+
+input UnitLogoMetadataDto {
+  floorId: String!
+  height: Float!
+  id: String
+  logo: String
+  rotation: Float!
+  scale: Float!
+  unitId: String!
+  width: Float!
+  x: Float!
+  y: Float!
+}
+
+type UnitStats {
+  stats: [UnitStatsEntry!]!
+  totalBooked: Float!
+  totalUnits: Float!
+}
+
+type UnitStatsEntry {
+  booked: Float!
+  rentType: Float!
+  total: Float!
+}
+
+type UnitsForecasts {
+  chargesChargesCommunes: String
+  chargesFonctionnement: String
+  chargesM2ChargesCommunes: String
+  chargesM2Fonctionnement: String
+  chargesM2Marketing: String
+  chargesMarketing: String
+  fraisRTM: String
+  franchiseFirstYear: String
+  franchiseSecondYear: String
+  franchiseThirdYear: String
+  glaForecast: String
+  id: String!
+  legalisation: String
+  livraison: String
+  loyer: String
+  marketingOuverture: String
+  mezzanineForecast: String
+  monthlyRentFirstYear: String
+  monthlyRentSecondYear: String
+  monthlyRentThirdYear: String
+  signature: String
+  slMedia: String
+  terrasseForecast: String
+  travaux: String
+  unit: Unit
+  yearlyRentFirstYear: String
+  yearlyRentSecondYear: String
+  yearlyRentThirdYear: String
+}
+
+input UnitsForecastsDto {
+  chargesChargesCommunes: String
+  chargesFonctionnement: String
+  chargesM2ChargesCommunes: String
+  chargesM2Fonctionnement: String
+  chargesM2Marketing: String
+  chargesMarketing: String
+  fraisRTM: String
+  franchiseFirstYear: String
+  franchiseSecondYear: String
+  franchiseThirdYear: String
+  glaForecast: String
+  id: String!
+  legalisation: String
+  livraison: String
+  loyer: String
+  marketingOuverture: String
+  mezzanineForecast: String
+  monthlyRentFirstYear: String
+  monthlyRentSecondYear: String
+  monthlyRentThirdYear: String
+  signature: String
+  slMedia: String
+  terrasseForecast: String
+  travaux: String
+  unitId: String!
+  yearlyRentFirstYear: String
+  yearlyRentSecondYear: String
+  yearlyRentThirdYear: String
+}
+
+input UpdateBrandDto {
+  brandId: String!
+  description: String!
+  logo: String!
+  name: String!
+  products: String!
+  status: String!
+}
+
+input UpdateClientInput {
+  legal: ClientLegalInput
+}
+
+input UpdateCompanyDto {
+  address: String
+  bgBanner: String
+  capital: String
+  city: String
+  cityRC: String
+  companyId: String!
+  country: String
+  customerCode: String
+  description: String
+  email: String
+  ice: String
+  instagram: String
+  linkedIn: String
+  mainColor: String
+  managerID: String
+  managerName: String
+  managerPosition: String
+  managerTitle: String
+  name: String
+  patente: String
+  phone: String
+  rc: String
+  region: String
+  taxIF: String
+  tva: String
+  type: Float
+  web: String
+  zip: String
+}
+
+input UpdateCompanyGroupDto {
+  companyIds: [String!]
+  id: String!
+  name: String!
+}
+
+input UpdateContactDto {
+  cin: String
+  contactId: String!
+  email: String!
+  firstname: String!
+  mobile: String
+  name: String!
+  phone: String
+  position: String!
+  title: String!
+}
+
+input UpdateDocumentDto {
+  dataObj: String
+  filePath: String
+  id: String!
+  sent: Boolean
+}
+
+input UpdateEmailTemplateDto {
+  emailTemplateId: Int!
+  footerImage: String!
+  headerImage: String!
+  linkWebsite: String!
+  signature: String!
+}
+
+input UpdateForecastDto {
+  id: Int!
+  longtermForecasts: [UpdateLongtermForecastDto!]
+  monthlyForecasts: [UpdateMonthlyForecastDto!]
+  name: String!
+}
+
+input UpdateLeadRelationsDto {
+  brandId: String
+  companyId: String
+  contactId: String
+  groupId: String
+}
+
+input UpdateLongtermForecastDto {
+  id: String!
+  retailCenterId: String!
+  retailCenterStatus: String!
+  unitsForecasts: [UnitsForecastsDto!]
+}
+
+input UpdateManualBookingDto {
+  brandId: String!
+  companyId: String!
+  contactId: String!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  id: String!
+  type: String!
+  unit: BookingUnitData!
+}
+
+input UpdateMessageNotificationDto {
+  department: String!
+  event: String!
+  message: String!
+  messageNotificationId: Int!
+  name: String!
+  subject: String!
+  toProspect: Boolean!
+  toSender: Boolean!
+  tos: [Float!]!
+}
+
+input UpdateMixCategoryDto {
+  alias: String!
+  id: Int!
+}
+
+input UpdateMixDto {
+  alias: String!
+  id: Int!
+  mixCategoryId: Int!
+}
+
+input UpdateMonthlyForecastDto {
+  april: String!
+  august: String!
+  december: String!
+  february: String!
+  id: String!
+  january: String!
+  july: String!
+  june: String!
+  march: String!
+  may: String!
+  november: String!
+  october: String!
+  september: String!
+}
+
+input UpdatePlanDto {
+  class: String!
+  cx: String
+  cy: String
+  floorId: String!
+  height: String
+  r: String
+  tagName: String!
+  unitId: String!
+  width: String
+  x: String
+  y: String
+}
+
+input UpdateRetailCenterDto {
+  address: String
+  addressCorrespondance: String
+  alias: String
+  annualVisitors: Float
+  areaMap: String
+  bankIBAN: String
+  bankName: String
+  bankSWIFT: String
+  capital: String
+  city: String
+  country: String
+  demography: String
+  description: String
+  flagShip: String
+  headquarters: String
+  ice: String
+  id: String!
+  informationContact: String
+  legalPersonCityRC: String
+  legalPersonFirstname: String
+  legalPersonName: String
+  legalPersonPosition: String
+  legalPersonRC: String
+  legalPersonTitle: String
+  logo: String
+  mixMerchandising: String
+  name: String
+  openingYear: Float
+  ownerEntity: String
+  parkingSpaces: Float
+  patente: String
+  picture: String
+  pictures: [String!]
+  socialMediaStats: String
+  specialty: Float
+  specialtyLeasing: String
+  surface: Float
+  taxIF: String
+  type: Float
+  workHours: String
+  zip: String
+}
+
+input UpdateUnitDto {
+  alias: String!
+  bgBanner: String
+  categoryId: Float
+  dayPrice: Float
+  dependency: Boolean!
+  depth: Float
+  description: String!
+  facadeLength: Float
+  features: [inputFeature!]
+  id: String!
+  mainPicture: String!
+  maxHeight: Float
+  mezzanine: Float
+  mixId: Float!
+  monthPrice: Float
+  rentType: Float!
+  specialTerms: String
+  specialties: [inputSpecialty!]
+  storage: Float
+  surface: Float
+  terrasse: Float
+  unitId: String!
+  videoFormat: String
+  videoLength: String
+  videoUrl: String
+  virtualVisitUrl: String
+  width: Float
+}
+
+input UpdateUnitLogoMetadataDto {
+  floorId: String!
+  height: Float!
+  id: String!
+  logo: String
+  rotation: Float!
+  scale: Float!
+  unitId: String!
+  width: Float!
+  x: Float!
+  y: Float!
+}
+
+input UpdateUserProfileDto {
+  email: String!
+  firstName: String!
+  jobTitle: String!
+  mobilePhone: String
+  name: String!
+  phone: String
+  picture: String
+  retailCenters: [String!]!
+  roleId: Float!
+  userId: String!
+}
+
+input UpdateUserRoleDto {
+  id: Float!
+  permissions: [Float!]
+}
+
+input UpdateValidationKindDto {
+  id: Float!
+  rolesNeeded: [Float!]
+}
+
+type UserProfile {
+  bookings: [Booking!]
+  createdAt: DateTime!
+  document: [Document!]
+  email: String!
+  firstName: String!
+  histories: [History!]
+  id: String!
+  jobTitle: String!
+  mobilePhone: String
+  name: String!
+  phone: String
+  picture: String!
+  retailCenters: [RetailCenter!]
+  role: UserRole!
+  roleId: Float!
+  status: Float
+  updatedAt: DateTime!
+}
+
+type UserRole {
+  Permissions: [Permission!]
+  id: Float!
+  name: String!
+  title: String!
+  users: [UserProfile!]!
+}
+
+type Validation {
+  booking: Booking
+  createdAt: DateTime!
+  creator: UserProfile
+  document: Document
+  id: String!
+  isComplete: Boolean!
+  kind: ValidationKind!
+  mediaProposal: MediaProposal
+  quote: Quote
+  updatedAt: DateTime
+}
+
+type ValidationKind {
+  alias: String!
+  id: Float!
+  isAutomated: Boolean!
+  isFinal: Boolean!
+  isOverride: Boolean!
+  isSpecialty: Boolean!
+  rolesNeeded: [UserRole!]!
+  validations: [Validation!]!
+}
+
+type ValidationList {
+  total: Float!
+  validations: [Validation!]!
+}
+
+input addUnitsToForecastDto {
+  addedUnits: [String!]
+  id: Int!
+  name: String!
+}
+
+input createNewPopstoresRequestDto {
+  companyId: String!
+  contactId: String!
+  dateFrom: DateTime!
+  dateTo: DateTime!
+  unitId: String!
+}
+
+input deleteSelectedUnitsForecastsDto {
+  filtredAssets: [String!]
+  filtredUnits: [String!]
+  id: Int!
+  name: String
+}
+
+input inputFeature {
+  id: Float
+}
+
+input inputSpecialty {
+  id: Float
+}
+
+input sendPresentationDto {
+  brandId: String!
+  companyId: String!
+  contactId: String!
+  documents: [String!]
+}
+
+input setUnitPicsDto {
+  pics: [PictureDto!]!
+  retailCenterId: String
+  unitId: String
+}

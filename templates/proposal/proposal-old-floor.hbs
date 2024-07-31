@@ -1,0 +1,81 @@
+<html>
+
+<head></head>
+
+<body>
+  <style>
+    .page {
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 10% 90%;
+      place-content: center;
+      place-items: center;
+    }
+
+    .header {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header>.title {
+      line-height: 1.5;
+      vertical-align: middle;
+      font-family: sans-serif;
+    }
+
+    .header>.title>.headline {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .header>.title>.subhead {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .header>.logo {
+      width: 120px;
+      height: 100%;
+    }
+
+    .header>.logo>img {
+      width: 100%;
+    }
+
+    .plan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .plan>svg {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <div class="page">
+    <div class="header">
+      <div class="title" style="color: {{themeColor}};">
+        <span class="headline">{{floorName}} | {{retailCenterName}} - {{retailCenterCity}}</span>
+        <br />
+        <span class="subhead">Détails de l'étage :</span>
+      </div>
+      <div class="logo">
+        <img src="{{logo}}" />
+      </div>
+    </div>
+    <div class="plan">
+      {{planMarked}}
+    </div>
+  </div>
+</body>
+
+</html>

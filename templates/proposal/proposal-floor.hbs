@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div style=" margin-top: -280px">
+  <div
+    style="width: 1472px; height: 1293px;margin-top: -7px;margin-left: -7px;position: relative; background: #E7E4E3">
+    <div
+      style="width: 1457px; height: 59px; padding: 11px; left: 0px; top: 760px; position: absolute; background: #22222E; justify-content: space-between; align-items: center; display: inline-flex ;margin-top: 464px;margin-left: -7px">
+      <div
+        style="flex: 1 1 0; text-align: center; color: white; font-size: 17px; font-family: Open Sans; font-weight: 400; word-wrap: break-word">
+        Document non contractuel.
+      </div>
+    </div>
+    <style>
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <div style="width: 1410px; height: 908px; left: 63px; bottom: 30px; position: absolute ;margin-top: 100px">
+      {{planMarked}}
+    </div>
+    <div style="width: 160px; height: 72px; margin-top: 260px; left: 50px; top: 27px; position: absolute;">
+        <span
+          style="color: {{themeColor}}; font-size: 27px; font-family: Open Sans; font-weight: 700; white-space: nowrap;">{{retailCenterName}}</span>
+      <br />
+      <span
+        style="color: {{themeColor}}; font-size: 19px; font-family: Open Sans; font-weight: 400; white-space: nowrap;">{{floorName}}</span>
+    </div>
+    <div
+      style="width: 485px; left: 94px; top: 120px; position: absolute; justify-content: flex-start; align-items: flex-start; gap: 19px; display: inline-flex">
+      <div
+        style="width: 100px ;height: 40px ;margin-top: 270px; padding-left: 19px; padding-right: 19px; padding-top: 8px; padding-bottom: 8px; background: #888888; border-radius: 3px; border: 1px #BEBEBD solid; justify-content: center; align-items: center; gap: 3px; display: flex">
+        <div style="color: white; font-size: 13px; font-family: Open Sans; font-weight: 700; word-wrap: break-word">
+          Locaux signes
+        </div>
+      </div>
+      <div
+        style="width: 100px  ;margin-left: -21px;height: 40px;margin-top: 270px;padding-left: 19px; padding-right: 19px; padding-top: 8px; padding-bottom: 8px; background: #E8E8E8; border-radius: 3px; border: 1px #BEBEBD solid; justify-content: center; align-items: center; gap: 3px; display: flex">
+        <div style="color: black; font-size: 13px; font-family: Open Sans; font-weight: 700; word-wrap: break-word">
+          Locaux vacants
+        </div>
+      </div>
+      <div
+        style="width: 100px ;margin-left: -21px;height: 40px ;margin-top: 270px; padding-left: 19px; padding-right: 19px; padding-top: 8px; padding-bottom: 8px; background: #EA5455; border-radius: 3px; border: 1px #BEBEBD solid; justify-content: center; align-items: center; gap: 3px; display: flex">
+        <div style="color: white; font-size: 13px; font-family: Open Sans; font-weight: 700; word-wrap: break-word">
+          Locaux en cours de signature
+        </div>
+      </div>
+      <div
+        style="width: 100px ;margin-left: -21px;height: 40px;margin-top: 270px;padding-left: 19px; padding-right: 19px; padding-top: 8px; padding-bottom: 8px; background: #FF9F43; border-radius: 3px; border: 1px #BEBEBD solid; justify-content: center; align-items: center; gap: 3px; display: flex">
+        <div style="color: white; font-size: 13px; font-family: Open Sans; font-weight: 700; word-wrap: break-word">
+          Locaux en cours de négociation
+        </div>
+      </div>
+      <div
+        style="left: 704px; top: 30px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4.2px; display: inline-flex; margin-top: 151px; margin-left: 78px">
+        <div
+          style="flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 3.5px; display: flex">
+          <div
+            style="width: 330.4px; height: 30.8px; color: {{themeColor}}; font-size: 23.8px; font-family: Open Sans; font-weight: 700; word-wrap: break-word">
+            SELECTION
+          </div>
+          <div style="width: 532px; height: 8.4px; background: white"></div>
+        </div>
+        <div style="width: 532px; overflow: hidden;">
+          <table style="width: 100%; border-collapse: separate; border-spacing: 0;">
+            <thead>
+            <tr style="background: #D9D9D9;">
+              <th
+                style="width: 13%; padding: 7px 0; color: {{themeColor}}; font-size: 14px; font-family: Open Sans; font-weight: 700; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                SITE
+              </th>
+              <th
+                style="width: 13%; padding: 7px 0; color: {{themeColor}}; font-size: 14px; font-family: Open Sans; font-weight: 700; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                ID
+              </th>
+              <th
+                style="width: 14%; padding: 7px 0; color: {{themeColor}}; font-size: 14px; font-family: Open Sans; font-weight: 700; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                TYPE
+              </th>
+              <th
+                style="width: 13%; padding: 7px 0; color: {{themeColor}}; font-size: 14px; font-family: Open Sans; font-weight: 700; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                GLA
+              </th>
+              {{#if isSpecialtyOrMedia}}
+                <th
+                  style="width: 27%; padding: 7px 0; color: {{themeColor}}; font-size: 14px; font-family: Open Sans; font-weight: 700; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                  PERIODE
+                </th>
+              {{/if}}
+              <th style="width: {{#if
+                isSpecialtyOrMedia}}20%{{else}}30%{{/if}}; padding: 7px 0; color: {{themeColor}}; font-size: 14px; font-family: Open Sans; font-weight: 700; border-bottom: 1.82px solid white;">
+                PRIX
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#units}}
+              <tr style="background: #D9D9D9">
+                <td
+                  style="padding: 10px 5px; color: #4E4D50; font-size: 11.2px; font-family: Open Sans; font-weight: 700; text-align: center; border-right: 1.82px solid white; border-bottom: 1.82px solid white; background: {{unitColor}};">
+                  {{site}}
+                </td>
+                <td
+                  style="padding: 10px 5px; color: #4E4D50; font-size: 11.2px; font-family: Open Sans; font-weight: 700; text-align: center; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                  {{id}}
+                </td>
+                <td
+                  style="padding: 10px 5px; color: #4E4D50; font-size: 11.2px; font-family: Open Sans; font-weight: 700; text-align: center; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                  {{typeLiteral}}
+                </td>
+                <td
+                  style="padding: 10px 5px; color: #4E4D50; font-size: 11.2px; font-family: Open Sans; font-weight: 700; text-align: center; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                  {{unitSurface}} m2
+                </td>
+                {{#if ../isSpecialtyOrMedia}}
+                  <td
+                    style="padding: 10px 5px; color: #4E4D50; font-size: 11.2px; font-family: Open Sans; font-weight: 700; text-align: center; border-right: 1.82px solid white; border-bottom: 1.82px solid white;">
+                    <span style="white-space: nowrap;">{{fromDate}} - {{toDate}}</span>
+                  </td>
+                {{/if}}
+                <td
+                  style="padding: 10px 5px; color: #4E4D50; font-size: 11.2px; font-family: Open Sans; font-weight: 700; text-align: center; border-bottom: 1.82px solid white;">
+                  {{unitPrice}}/Mois
+                </td>
+              </tr>
+            {{/units}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

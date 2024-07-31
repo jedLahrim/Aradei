@@ -1,0 +1,939 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["filteredRelationCount"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id   String @id @default(cuid()) @db.VarChar(30)
+  name String
+
+  @@map("client")
+}
+
+model UserProfile {
+  id                 String          @id @default(cuid()) @db.VarChar(30)
+  email              String          @unique
+  password           String?
+  name               String
+  firstName          String
+  jobTitle           String          @default("employee") @db.VarChar(30)
+  picture            String
+  phone              String?
+  mobilePhone        String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @default(now())
+  roleId             Int
+  status             Int?            @default(1)
+  role               UserRole        @relation(fields: [roleId], references: [id])
+  bookings           Booking[]       @relation("creatorUser")
+  prospectBookings   Booking[]       @relation("prospectUser")
+  validatedBookings  Booking[]       @relation("validators")
+  quotes             Quote[]         @relation("quoteCreator")
+  contacts           Contact[]
+  validatedDocuments Document[]      @relation("documentValidators")
+  documents          Document[]      @relation("documentCreator")
+  histories          History[]
+  settings           UserSetting[]
+  companiesOwned     Company[]       @relation("owners")
+  companiesCreated   Company[]       @relation("creator")
+  talkReceived       Talk[]          @relation("fromUser")
+  talksSent          Talk[]          @relation("toUser")
+  proposalEdits      ProposalEdit[]  @relation("creatorProposalEditUser")
+  quoteEdits         QuoteEdit[]     @relation("creatorQuoteEditUser")
+  mediaProposals     MediaProposal[] @relation("creatorMediaProposalUser")
+  retailCenters      RetailCenter[]
+
+  validations          Validation[]
+  companyValidations   Company[]      @relation("companyValidator")
+  Presentation         Presentation[]
+  Invoice              Invoice[]
+  InvoiceEdit          InvoiceEdit[]
+  notificationsUsers   Notification[] @relation("users")
+  notificationsReaders Notification[] @relation("readers")
+
+  @@index([roleId], map: "UserProfile_roleId_fkey")
+  @@map("userprofile")
+}
+
+model UserSetting {
+  id     String       @id @default(cuid()) @db.VarChar(30)
+  name   String       @db.VarChar(30)
+  active Boolean      @default(false)
+  user   UserProfile? @relation(fields: [id], references: [id])
+
+  @@map("usersetting")
+}
+
+model UserRole {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  title               String                @default("") @db.VarChar(200)
+  users               UserProfile[]
+  ValidationKind      ValidationKind[]
+  MessageNotification MessageNotification[]
+  Permissions         Permission[]
+
+  @@map("userrole")
+}
+
+model Permission {
+  id      Int        @id @default(autoincrement())
+  action  String
+  subject String
+  roles   UserRole[]
+
+  @@map("permission")
+}
+
+model Presentation {
+  id             String          @id @default(cuid()) @db.VarChar(30)
+  brand          Brand           @relation(fields: [brandId], references: [id])
+  brandId        String          @db.VarChar(30)
+  company        Company         @relation(fields: [companyId], references: [id])
+  companyId      String          @db.VarChar(30)
+  contact        Contact         @relation(fields: [contactId], references: [id])
+  contactId      String          @db.VarChar(30)
+  createdAt      DateTime        @default(now())
+  commercialDocs CommercialDoc[]
+  creator        UserProfile?    @relation(fields: [userProfileId], references: [id])
+  userProfileId  String          @db.VarChar(30)
+}
+
+model Company {
+  id              String            @id @default(cuid()) @db.VarChar(30)
+  customerCode    String?
+  name            String
+  logo            String?
+  address         String?
+  city            String?
+  region          String?
+  country         String?
+  zip             String?
+  phone           String
+  email           String
+  web             String?
+  linkedIn        String?
+  instragram      String?
+  type            Int
+  tva             String?
+  rc              String?
+  cityRC          String?
+  ice             String?
+  capital         String?
+  patente         String?
+  taxIF           String?
+  managerName     String?
+  managerTitle    String?
+  managerPosition String?
+  managerID       String?
+  mainColor       String?
+  dateFormat      String?
+  currency        String?
+  isValidated     Boolean           @default(false)
+  status          String?
+  source          String?           @default("INTERNAL_FORM")
+  requests        Request[]
+  owners          UserProfile[]     @relation("owners")
+  validatorId     String            @default("000000000000")
+  validator       UserProfile       @relation("companyValidator", fields: [validatorId], references: [id])
+  description     String?           @db.Text
+  // isProspect    Boolean     @default(false)
+  // isTenant      Boolean     @default(false)
+  creatorId       String            @db.VarChar(30)
+  creator         UserProfile?      @relation("creator", fields: [creatorId], references: [id])
+  bookings        Booking[]
+  // contacts        Contact[]
+  documents       Document[]
+  histories       History[]
+  brands          Brand[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @default(now())
+  ProspectRequest ProspectRequest[]
+  companyGroup    CompanyGroup?     @relation(fields: [companyGroupId], references: [id])
+  companyGroupId  String?           @db.VarChar(30)
+  bgBanner        String?
+  Presentation    Presentation[]
+
+  @@index([creatorId], map: "Company_creatorId_fkey")
+  @@index([companyGroupId], map: "Company_companyGroupId_fkey")
+  @@map("company")
+}
+
+model CompanyGroup {
+  id        String    @id @default(cuid()) @db.VarChar(30)
+  name      String
+  companies Company[]
+  createdAt DateTime  @default(now())
+
+  @@map("companygroup")
+}
+
+model Request {
+  id        String   @id @default(cuid()) @db.VarChar(30)
+  message   String?  @db.Text
+  companyId String?  @db.VarChar(30)
+  company   Company? @relation(fields: [companyId], references: [id])
+  contactId String?  @db.VarChar(30)
+  contact   Contact? @relation(fields: [contactId], references: [id])
+  brandId   String?  @db.VarChar(30)
+  brand     Brand?   @relation(fields: [brandId], references: [id])
+  createdAt DateTime @default(now())
+  isDone    Boolean  @default(false)
+
+  @@map("request")
+}
+
+model ProspectRequest {
+  id        String    @id @default(cuid()) @db.VarChar(30)
+  dateFrom  DateTime?
+  dateTo    DateTime?
+  company   Company?  @relation(fields: [companyId], references: [id])
+  companyId String?   @db.VarChar(30)
+  contact   Contact?  @relation(fields: [contactId], references: [id])
+  contactId String?   @db.VarChar(30)
+  unit      Unit?     @relation(fields: [unitId], references: [id])
+  unitId    String?   @db.VarChar(30)
+
+  @@map("prospect_request")
+}
+
+model Brand {
+  id           String         @id @default(cuid()) @db.VarChar(30)
+  name         String
+  logo         String
+  description  String         @db.Text
+  products     String         @db.Text
+  techDocs     Document[]
+  companies    Company[]
+  createdAt    DateTime       @default(now())
+  History      History[]
+  bookings     Booking[]
+  contacts     Contact[]
+  source       String?        @default("INTERNAL_FORM")
+  status       String?        @default("Pending")
+  requests     Request[]
+  website      String?
+  linkedin     String?
+  logoPlan     String?
+  bgBanner     String?
+  pictures     Picture[]
+  mix          Mix?           @relation(fields: [mixId], references: [id])
+  mixId        Int?
+  Presentation Presentation[]
+
+  @@map("brand")
+}
+
+model Contact {
+  id         String   @id @default(cuid()) @db.VarChar(30)
+  name       String
+  firstname  String
+  phone      String?
+  mobile     String?
+  email      String
+  cin        String?
+  creatorId  String   @db.VarChar(30)
+  // companyId  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+  hasAccount Boolean  @default(false)
+  // cCompanyId String
+
+  position        String            @default("") @db.VarChar(30)
+  title           String            @default("") @db.VarChar(30)
+  isArchived      Boolean           @default(false)
+  // company         Company           @relation(fields: [companyId], references: [id])
+  creator         UserProfile       @relation(fields: [creatorId], references: [id])
+  bookings        Booking[]
+  histories       History[]
+  brands          Brand[]
+  // @@index([cCompanyId], map: "Contact_cCompanyId_fkey")
+  ProspectRequest ProspectRequest[]
+  source          String?           @default("INTERNAL_FORM")
+  requests        Request[]
+  Presentation    Presentation[]
+
+  // @@index([companyId], map: "Contact_companyId_fkey")
+  @@index([creatorId], map: "Contact_creatorId_fkey")
+  @@map("contact")
+}
+
+model Forecast {
+  id                Int                 @id @default(autoincrement())
+  name              String?             @db.VarChar(50)
+  createdAt         DateTime?           @default(now())
+  year              DateTime?           @db.Date
+  type              String?             @db.VarChar(50)
+  monthlyForecasts  monthlyForecasts[]
+  longtermForecasts LongtermForecasts[]
+}
+
+model LongtermForecasts {
+  id                 String           @id @default(cuid()) @db.VarChar(30)
+  Forecast           Forecast?        @relation(fields: [forecastId], references: [id])
+  forecastId         Int?
+  retailCenter       RetailCenter     @relation(fields: [retailCenterId], references: [id])
+  retailCenterId     String           @db.VarChar(30)
+  unitsForecasts     UnitsForecasts[]
+  retailCenterStatus String?          @db.VarChar(30)
+}
+
+model UnitsForecasts {
+  id                       String             @id @default(cuid()) @db.VarChar(30)
+  unit                     Unit               @relation(fields: [unitId], references: [id])
+  unitId                   String             @db.VarChar(30)
+  glaForecast              String?            @db.VarChar(30)
+  terrasseForecast         String?            @db.VarChar(30)
+  mezzanineForecast        String?            @db.VarChar(30)
+  monthlyRentFirstYear     String?            @db.VarChar(30)
+  monthlyRentSecondYear    String?            @db.VarChar(30)
+  monthlyRentThirdYear     String?            @db.VarChar(30)
+  yearlyRentFirstYear      String?            @db.VarChar(30)
+  yearlyRentSecondYear     String?            @db.VarChar(30)
+  yearlyRentThirdYear      String?            @db.VarChar(30)
+  chargesM2Fonctionnement  String?            @db.VarChar(30)
+  chargesM2Marketing       String?            @db.VarChar(30)
+  chargesM2ChargesCommunes String?            @db.VarChar(30)
+  chargesFonctionnement    String?            @db.VarChar(30)
+  chargesMarketing         String?            @db.VarChar(30)
+  chargesChargesCommunes   String?            @db.VarChar(30)
+  franchiseFirstYear       String?            @db.VarChar(30)
+  franchiseSecondYear      String?            @db.VarChar(30)
+  franchiseThirdYear       String?            @db.VarChar(30)
+  legalisation             String?            @db.VarChar(30)
+  signature                String?            @db.VarChar(30)
+  fraisRTM                 String?            @db.VarChar(30)
+  marketingOuverture       String?            @db.VarChar(30)
+  slMedia                  String?            @db.VarChar(30)
+  livraison                String?            @db.VarChar(30)
+  travaux                  String?            @db.VarChar(30)
+  loyer                    String?            @db.VarChar(30)
+  LongtermForecasts        LongtermForecasts? @relation(fields: [longtermForecastsId], references: [id])
+  longtermForecastsId      String?            @db.VarChar(30)
+}
+
+model monthlyForecasts {
+  id             String       @id @default(cuid()) @db.VarChar(30)
+  january        String?      @db.VarChar(50)
+  february       String?      @db.VarChar(50)
+  march          String?      @db.VarChar(50)
+  april          String?      @db.VarChar(50)
+  may            String?      @db.VarChar(50)
+  june           String?      @db.VarChar(50)
+  july           String?      @db.VarChar(50)
+  august         String?      @db.VarChar(50)
+  september      String?      @db.VarChar(50)
+  october        String?      @db.VarChar(50)
+  november       String?      @db.VarChar(50)
+  december       String?      @db.VarChar(50)
+  retailCenter   RetailCenter @relation(fields: [retailCenterId], references: [id])
+  Forecast       Forecast?    @relation(fields: [forecastId], references: [id])
+  forecastId     Int?
+  retailCenterId String       @db.VarChar(30)
+}
+
+model RetailCenter {
+  id                    String              @id @default(cuid()) @db.VarChar(30)
+  name                  String              @db.VarChar(50)
+  alias                 String?             @db.VarChar(50)
+  addressCorrespondance String?             @db.VarChar(120)
+  address               String
+  zip                   String?
+  capital               String?
+  taxIF                 String?             @db.VarChar(50)
+  patente               String?             @db.VarChar(50)
+  ice                   String?             @db.VarChar(50)
+  city                  String              @db.VarChar(50)
+  logo                  String              @default("/uploads/logos/soccoAlto.jpg")
+  country               String              @db.VarChar(50)
+  type                  Int
+  specialty             Int
+  description           String              @db.Text
+  ownerEntity           String              @db.VarChar(50)
+  headquarters          String?             @db.VarChar(50)
+  legalPersonTitle      String?             @db.VarChar(5)
+  legalPersonName       String              @db.VarChar(50)
+  legalPersonFirstname  String              @db.VarChar(50)
+  legalPersonRC         String              @db.VarChar(20)
+  legalPersonPosition   String?             @db.VarChar(20)
+  bankName              String?             @db.VarChar(50)
+  bankIBAN              String?             @db.VarChar(50)
+  bankSWIFT             String?             @db.VarChar(50)
+  legalPersonCityRC     String              @db.VarChar(50)
+  flagShip              String?             @db.VarChar(50)
+  surface               Float
+  openingYear           Int
+  parkingSpaces         Int?
+  annualVisitors        Int?
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @default(now())
+  picture               String              @default("/uploads/images/asset_soccoalto.png")
+  pictures              Picture[]
+  // bookings             Booking[]  @relation("bookingsR" , map: "bookingsR")
+  documents             Document[]
+  floors                Floor[]
+  History               History[]
+  commercialDocs        CommercialDoc[]
+  monthlyForecasts      monthlyForecasts[]
+  UserProfile           UserProfile[]
+  LongtermForecasts     LongtermForecasts[]
+  mixMerchandising      String?             @default(dbgenerated("('')")) @db.LongText
+  specialtyLeasing      String?             @default(dbgenerated("('')")) @db.LongText
+  socialMediaStats      String?             @default(dbgenerated("('')")) @db.LongText
+  workHours             String?             @default(dbgenerated("('')")) @db.LongText
+  informationContact    String?             @default(dbgenerated("('')")) @db.LongText
+  areaMap               String?
+  demography            String?             @db.LongText
+
+  @@map("retailcenter")
+}
+
+model Notification {
+  id        String        @id @default(cuid()) @db.VarChar(30)
+  message   String        @db.Text
+  type      String        @db.Text
+  date      DateTime      @default(now())
+  isRead    Boolean       @default(false)
+  booking   Booking       @relation(fields: [bookingId], references: [id])
+  bookingId String        @db.VarChar(30)
+  users     UserProfile[] @relation(name: "users")
+  readers   UserProfile[] @relation(name: "readers")
+
+  @@map("notification")
+}
+
+model Floor {
+  id               String             @id @default(cuid()) @db.VarChar(30)
+  name             String
+  retailCenterId   String
+  order            Int                @default(0)
+  svgBluePrint     String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+  retailCenter     RetailCenter       @relation(fields: [retailCenterId], references: [id])
+  documents        Document[]
+  units            Unit[]
+  commercialDocs   CommercialDoc[]
+  unitLogoMetadata UnitLogoMetadata[]
+
+  @@index([retailCenterId], map: "Floor_retailCenterId_fkey")
+  @@map("floor")
+}
+
+model Feature {
+  id    Int    @id @default(autoincrement())
+  alias String
+  units Unit[]
+
+  @@map("feature")
+}
+
+model Picture {
+  id             String        @id @default(cuid()) @db.VarChar(30)
+  filePath       String
+  unitId         String?
+  unit           Unit?         @relation(fields: [unitId], references: [id])
+  retailCenterId String?
+  retailCenter   RetailCenter? @relation(fields: [retailCenterId], references: [id])
+  Brand          Brand?        @relation(fields: [brandId], references: [id])
+  brandId        String?       @db.VarChar(30)
+
+  @@map("picture")
+}
+
+model Unit {
+  id                     String            @id @default(cuid()) @db.VarChar(30)
+  alias                  String
+  unitId                 String
+  floorId                String
+  floor                  Floor             @relation(fields: [floorId], references: [id])
+  status                 Int
+  rentType               Int
+  specialities           Speciality[]
+  mixId                  Int
+  mix                    Mix               @relation(fields: [mixId], references: [id])
+  surface                Float?
+  mezzanine              Float?
+  terrasse               Float?
+  storage                Float?
+  width                  Float
+  depth                  Float
+  maxHeight              Float?
+  qty                    Float?
+  measurementUnit        String            @default("meters") @db.VarChar(30)
+  facadeLength           Float?
+  dependency             Boolean           @default(false)
+  features               Feature[]
+  dayPrice               Float?
+  weekPrice              Float?
+  monthPrice             Float?
+  sqMeterPrice           Float?
+  sqMeterPriceSecondYear Float?
+  sqMeterPriceThirdYear  Float?
+  description            String            @db.Text
+  specialTerms           String?           @db.Text
+  mainPicture            String            @default("/uploads/unitDefault.jpg")
+  pictures               Picture[]
+  videoFormat            String?
+  videoUrl               String?
+  virtualVisitUrl        String?
+  bgBanner               String?
+  videoLength            String?
+  bookings               Booking[]         @relation("bookingsU", map: "bookingsU")
+  documents              Document[]
+  histories              History[]
+  ProspectRequest        ProspectRequest[]
+  mediaProposals         MediaProposal[]
+  isGroup                Boolean           @default(false)
+  UnitGroup              UnitGroup?        @relation(fields: [unitGroupId], references: [id])
+  unitGroupId            String?           @db.VarChar(30)
+  categoryId             Int?              @default(3)
+  category               Category?         @relation(fields: [categoryId], references: [id])
+  unitLogoMetadata       UnitLogoMetadata?
+  UnitsForecasts         UnitsForecasts[]
+
+  @@index([floorId], map: "Unit_floorId_fkey")
+  @@index([mixId], map: "Unit_mixId_fkey")
+  @@index([categoryId], map: "Unit_categoryId_fkey")
+  @@map("unit")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(50)
+  units Unit[]
+
+  @@map("category")
+}
+
+model UnitGroup {
+  id    String @id @default(cuid()) @db.VarChar(30)
+  Units Unit[]
+
+  @@map("unitgroup")
+}
+
+model Speciality {
+  id    Int    @id @default(autoincrement())
+  alias String @db.VarChar(50)
+  units Unit[]
+
+  @@map("speciality")
+}
+
+model MixCategory {
+  id        Int     @id @default(autoincrement())
+  alias     String  @db.VarChar(50)
+  icon      String?
+  color     String?
+  i18nAlias String?
+  subMixes  Mix[]
+
+  @@map("mix_category")
+}
+
+model Mix {
+  id            Int          @id @default(autoincrement())
+  alias         String       @db.VarChar(50)
+  units         Unit[]
+  Brand         Brand[]
+  MixCategory   MixCategory? @relation(fields: [mixCategoryId], references: [id])
+  mixCategoryId Int?
+
+  @@map("mix")
+}
+
+model Document {
+  id              String        @id @default(cuid()) @db.VarChar(30)
+  name            String?
+  label           String?
+  filePath        String
+  type            String
+  dataObj         String?       @db.Text // To hold an object like { vars: { var1: " " ...} ...}
+  userId          String        @db.VarChar(30)
+  unitId          String?
+  companyId       String?
+  retailCenterId  String?
+  floorId         String?
+  needsValidation Boolean?      @default(true)
+  isAccepted      Boolean?      @default(false)
+  isValidated     Boolean?      @default(false)
+  sent            Boolean?      @default(false)
+  sentAt          DateTime      @default(now())
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @default(now())
+  bookingId       String?       @db.VarChar(30)
+  quote           Quote?        @relation("quotePdf")
+  booking         Booking?      @relation(fields: [bookingId], references: [id])
+  company         Company?      @relation(fields: [companyId], references: [id])
+  floor           Floor?        @relation(fields: [floorId], references: [id])
+  retailCenter    RetailCenter? @relation(fields: [retailCenterId], references: [id])
+  unit            Unit?         @relation(fields: [unitId], references: [id])
+  creator         UserProfile   @relation("documentCreator", fields: [userId], references: [id])
+  contract        Booking?      @relation("contract")
+  histories       History[]
+  talks           Talk[]
+  validation      Validation?
+  brand           Brand?        @relation(fields: [brandId], references: [id])
+  brandId         String?       @db.VarChar(30)
+  validators      UserProfile[] @relation("documentValidators")
+  pages           Page[]
+  Invoice         Invoice[]
+
+  @@index([userId], map: "Document_userId_fkey")
+  @@index([bookingId], map: "Document_bookingId_fkey")
+  @@index([companyId], map: "Document_companyId_fkey")
+  @@index([floorId], map: "Document_floorId_fkey")
+  @@index([retailCenterId], map: "Document_retailCenterId_fkey")
+  @@index([unitId], map: "Document_unitId_fkey")
+  @@map("document")
+}
+
+model Page {
+  id         String   @id @default(cuid()) @db.VarChar(30)
+  content    String   @db.Text
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+
+  @@index([documentId], map: "Page_documentId_fkey")
+  @@map("page")
+}
+
+// USER SPECIALTY WILL CREATE ONE VALIDATION OF KIND "CONTRACT VALIDATION" FOR BOOKING XXXX
+
+// USER LEGAL OR XXX WILL PULL VALIDATIONS THAT ARE HERE FOR HIS ROLE and isComplete===false
+model Validation {
+  id              String         @id @default(cuid()) @db.VarChar(30)
+  kindId          Int
+  kind            ValidationKind @relation(fields: [kindId], references: [id])
+  creator         UserProfile    @relation(fields: [userProfileId], references: [id])
+  booking         Booking?       @relation(fields: [bookingId], references: [id])
+  bookingId       String?        @db.VarChar(30)
+  documentId      String?        @unique @db.VarChar(30)
+  document        Document?      @relation(fields: [documentId], references: [id])
+  userProfileId   String         @db.VarChar(30)
+  isComplete      Boolean        @default(false)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime?
+  mediaProposalId String?        @unique @db.VarChar(30)
+  mediaProposal   MediaProposal? @relation(fields: [mediaProposalId], references: [id])
+  quoteId         String?        @unique @db.VarChar(30)
+  quote           Quote?         @relation(fields: [quoteId], references: [id])
+
+  @@map("validation")
+}
+
+model ValidationKind {
+  id          Int          @id @default(autoincrement())
+  alias       String // "CONTRACT_VALIDATION"
+  rolesNeeded UserRole[] // WHAT ROLE IS THE RECIPIENT OF THE VALIDATION
+  isAutomated Boolean // FALSE
+  isOverride  Boolean // FALSE
+  isFinal     Boolean // TRUE
+  isSpecialty Boolean // TRUE
+  validations Validation[]
+
+  @@map("validationkind")
+}
+
+//
+
+model Booking {
+  id                  String          @id @default(cuid()) @db.VarChar(30)
+  creatorId           String          @db.VarChar(30)
+  contactId           String
+  dateFrom            DateTime        @db.Date
+  dateTo              DateTime        @db.Date
+  notes               String?         @db.Text
+  type                String          @db.VarChar(30)
+  proposalSent        Boolean         @default(false)
+  proposalSentAt      DateTime        @default(now())
+  // companyId      String
+  // unitBundleId   String?
+  contractId          String?         @unique
+  prospectUserId      String?         @db.VarChar(30)
+  status              Int             @default(1)
+  createdAt           DateTime        @default(now())
+  contractComplete    Boolean         @default(false)
+  contractCompletedAt DateTime?       @db.Date
+  signedAt            DateTime?       @db.Date
+  validatedAt         DateTime?       @default(now())
+  renewalSent         Boolean         @default(false)
+  parentBookingId     String?
+  renewed             Boolean         @default(false)
+  total               Float?
+  // retailCenterId String
+  // madeByCompany  Company       @relation(fields: [companyId], references: [id])
+  prospect            Contact         @relation(fields: [contactId], references: [id])
+  contract            Document?       @relation("contract", fields: [contractId], references: [id])
+  creator             UserProfile     @relation("creatorUser", fields: [creatorId], references: [id])
+  // retailCenter   RetailCenter  @relation(fields: [retailCenterId], references: [id])
+  prospectUser        UserProfile?    @relation("prospectUser", fields: [prospectUserId], references: [id])
+  // bundle         unitBundle[]
+  units               Unit[]          @relation("bookingsU", map: "bookingsU")
+  validators          UserProfile[]   @relation("validators")
+  histories           History[]
+  talks               Talk[]
+  validations         Validation[]
+  documents           Document[]
+  proposalEdits       ProposalEdit[]  @relation("proposalEdits", map: "proposalEdits")
+  quoteEdits          QuoteEdit[]     @relation("quoteEdits", map: "quoteEdits")
+  // @@index([unitNegoId], map: "Booking_unitNegoId_fkey")
+  companyId           String          @db.VarChar(30)
+  company             Company         @relation(fields: [companyId], references: [id])
+  brandId             String          @db.VarChar(30)
+  brand               Brand           @relation(fields: [brandId], references: [id])
+  mediaProposals      MediaProposal[] @relation("mediaProposals", map: "mediaProposals")
+  isManual            Boolean?        @default(false)
+  Notification        Notification[]
+  invoiceEdits        InvoiceEdit[]
+
+  @@index([creatorId], map: "Booking_creatorId_fkey")
+  @@index([contactId], map: "Booking_contactId_fkey")
+  @@index([companyId], map: "Booking_companyId_fkey")
+  @@index([brandId], map: "Booking_brandId_fkey")
+  @@index([prospectUserId], map: "Booking_prospectUserId_fkey")
+  @@map("booking")
+}
+
+model EmailTemplate {
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  signature            String?
+  messageNotifications MessageNotification[]
+  headerImage          String
+  linkWebsite          String?
+  footerImage          String
+  createdAt            DateTime              @default(now())
+
+  @@map("emailtemplate")
+}
+
+model MessageNotification {
+  id              Int           @id @default(autoincrement())
+  name            String
+  subject         String
+  event           String
+  tos             UserRole[]
+  toProspect      Boolean       @default(false)
+  toSender        Boolean       @default(false)
+  department      String
+  message         String        @db.Text
+  createdAt       DateTime      @default(now())
+  emailTemplate   EmailTemplate @relation(fields: [emailTemplateId], references: [id])
+  emailTemplateId Int
+
+  @@map("messagenotification")
+}
+
+model Quote {
+  id          String      @id @default(cuid()) @db.VarChar(30)
+  edits       QuoteEdit[]
+  status      Int         @default(1)
+  isAccepted  Boolean     @default(false)
+  isValidated Boolean     @default(false)
+  notes       String      @default(dbgenerated("('')")) @db.Text
+  total       Float
+  creatorId   String
+  creator     UserProfile @relation("quoteCreator", fields: [creatorId], references: [id])
+  docId       String?     @unique @db.VarChar(30)
+  document    Document?   @relation("quotePdf", fields: [docId], references: [id])
+  createdAt   DateTime    @default(now())
+  sentAt      DateTime    @default(now())
+  exportedAt  DateTime?
+  validation  Validation?
+
+  @@map("quote")
+}
+
+model ProposalEdit {
+  id          String      @id @default(cuid()) @db.VarChar(30)
+  bookingId   String      @db.VarChar(30)
+  booking     Booking     @relation("proposalEdits", fields: [bookingId], references: [id])
+  unitId      String      @db.VarChar(30)
+  unitSurface Float
+  unitPrice   Float
+  creatorId   String
+  creator     UserProfile @relation("creatorProposalEditUser", fields: [creatorId], references: [id])
+  createdAt   DateTime    @default(now())
+
+  @@map("proposaledit")
+}
+
+model QuoteEdit {
+  id          String      @id @default(cuid()) @db.VarChar(30)
+  quoteId     String?     @db.VarChar(30)
+  quote       Quote?      @relation(fields: [quoteId], references: [id])
+  bookingId   String      @db.VarChar(30)
+  booking     Booking     @relation("quoteEdits", fields: [bookingId], references: [id])
+  unitId      String      @db.VarChar(30)
+  unitSurface Float
+  unitPrice   Float
+  dateFrom    DateTime?   @db.Date
+  dateTo      DateTime?   @db.Date
+  creatorId   String
+  creator     UserProfile @relation("creatorQuoteEditUser", fields: [creatorId], references: [id])
+  createdAt   DateTime    @default(now())
+
+  @@map("quoteedit")
+}
+
+model Talk {
+  id         String       @id @default(cuid()) @db.VarChar(30)
+  fromId     String       @db.VarChar(30)
+  toId       String?      @db.VarChar(30)
+  content    String       @db.Text
+  bookingId  String
+  documentId String?
+  booking    Booking      @relation(fields: [bookingId], references: [id])
+  document   Document?    @relation(fields: [documentId], references: [id])
+  from       UserProfile  @relation("fromUser", fields: [fromId], references: [id])
+  to         UserProfile? @relation("toUser", fields: [toId], references: [id])
+  createdAt  DateTime     @default(now())
+
+  @@index([bookingId], map: "Talk_bookingId_fkey")
+  @@index([documentId], map: "Talk_documentId_fkey")
+  @@index([fromId], map: "Talk_fromId_fkey")
+  @@index([toId], map: "Talk_toId_fkey")
+  @@map("talk")
+}
+
+model History {
+  id     String @id @default(cuid()) @db.VarChar(30)
+  action String
+
+  creatorId String
+  creator   UserProfile @relation(fields: [creatorId], references: [id])
+
+  companyHistoryId String?
+  company          Company? @relation(fields: [companyHistoryId], references: [id])
+
+  retailCenterId String?
+  retailCenter   RetailCenter? @relation(fields: [retailCenterId], references: [id])
+
+  contactHistoryId String?
+  contact          Contact? @relation(fields: [contactHistoryId], references: [id])
+
+  brandHistoryId String?
+  brand          Brand?  @relation(fields: [brandHistoryId], references: [id])
+
+  bookingHistoryId String?
+  booking          Booking? @relation(fields: [bookingHistoryId], references: [id])
+
+  documentHistoryId String?
+  document          Document? @relation(fields: [documentHistoryId], references: [id])
+
+  unitHistoryId String?
+  unit          Unit?   @relation(fields: [unitHistoryId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([bookingHistoryId], map: "History_bookingHistoryId_fkey")
+  @@index([companyHistoryId], map: "History_companyHistoryId_fkey")
+  @@index([contactHistoryId], map: "History_contactHistoryId_fkey")
+  @@index([creatorId], map: "History_creatorId_fkey")
+  @@index([documentHistoryId], map: "History_documentHistoryId_fkey")
+  @@index([unitHistoryId], map: "History_unitHistoryId_fkey")
+  @@map("history")
+}
+
+model Media {
+  id              String         @id @default(cuid()) @db.VarChar(30)
+  mediaProposalId String?
+  mediaProposal   MediaProposal? @relation(fields: [mediaProposalId], references: [id])
+  filePath        String
+  fileType        String
+  fileOrder       Int
+
+  @@map("media")
+}
+
+model Invoice {
+  id          String        @id @default(cuid()) @db.VarChar(30)
+  status      Int           @default(1)
+  isAccepted  Boolean       @default(false)
+  isValidated Boolean       @default(false)
+  notes       String        @default(dbgenerated("('')")) @db.Text
+  total       Float
+  creatorId   String
+  document    Document?     @relation(fields: [docId], references: [id])
+  docId       String?       @db.VarChar(30)
+  creator     UserProfile   @relation(fields: [creatorId], references: [id])
+  createdAt   DateTime      @default(now())
+  sentAt      DateTime      @default(now())
+  edits       InvoiceEdit[]
+}
+
+model InvoiceEdit {
+  id          String      @id @default(cuid()) @db.VarChar(30)
+  invoice     Invoice     @relation(fields: [invoiceId], references: [id])
+  invoiceId   String      @db.VarChar(30)
+  booking     Booking     @relation(fields: [bookingId], references: [id])
+  bookingId   String      @db.VarChar(30)
+  unitId      String      @db.VarChar(30)
+  unitSurface Float
+  unitPrice   Float
+  dateFrom    DateTime?   @db.Date
+  dateTo      DateTime?   @db.Date
+  creator     UserProfile @relation(fields: [creatorId], references: [id])
+  creatorId   String      @db.VarChar(30)
+}
+
+model MediaProposal {
+  id         String      @id @default(cuid()) @db.VarChar(30)
+  medias     Media[]
+  bookingId  String      @db.VarChar(30)
+  booking    Booking     @relation("mediaProposals", fields: [bookingId], references: [id])
+  unitId     String
+  unit       Unit        @relation(fields: [unitId], references: [id])
+  creatorId  String
+  creator    UserProfile @relation("creatorMediaProposalUser", fields: [creatorId], references: [id])
+  validation Validation?
+  createdAt  DateTime    @default(now())
+
+  @@map("mediaproposal")
+}
+
+model CommercialDoc {
+  id             String         @id @default(cuid()) @db.VarChar(30)
+  floorId        String?        @db.VarChar(30)
+  Floor          Floor?         @relation(fields: [floorId], references: [id])
+  retailCenterId String?        @db.VarChar(30)
+  RetailCenter   RetailCenter?  @relation(fields: [retailCenterId], references: [id])
+  filePath       String
+  name           String
+  type           String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @default(now())
+  Presentation   Presentation[]
+
+  @@index([floorId], map: "CommercialDoc_floorId_fkey")
+  @@index([retailCenterId], map: "CommercialDoc_retailCenterId_fkey")
+  @@map("commercialdoc")
+}
+
+model UnitLogoMetadata {
+  id       String  @id @default(cuid()) @db.VarChar(30)
+  unitId   String  @unique @db.VarChar(30)
+  unit     Unit    @relation(fields: [unitId], references: [id])
+  floorId  String  @db.VarChar(30)
+  floor    Floor   @relation(fields: [floorId], references: [id])
+  x        Float
+  y        Float
+  rotation Float
+  width    Float
+  height   Float
+  logo     String?
+  scale    Float   @default(1)
+
+  @@index([floorId], map: "UnitLogoMetadata_floorId_fkey")
+  @@index([unitId], map: "UnitLogoMetadata_unitId_fkey")
+  @@map("unitlogometadata")
+}

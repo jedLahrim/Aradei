@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+  <title>Document</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div
+  style='width: 1326px; height: 910px; position: relative; background: #e6eceb; margin-top: -7px; margin-left: -42px;'>
+  <div
+    style='margin-left: 132px; width: 511px; height: 606px; padding: 14px 14px 23px 14px; left: 365px; top: 0px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 5px; display: inline-flex;'>
+    <div
+      style='width: 790px; align-self: stretch; height: 146px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex;'>
+      <div
+        style='align-self: stretch; height: 25px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex;'>
+        <div
+          style='margin-top: 36px; width: 177px; height: 16px; color: {{primaryColor}}; font-size: 14px; font-family: Open Sans; font-weight: 710; word-wrap: break-word;'>
+          A PROPOS DE L´ASSET
+        </div>
+      </div>
+      <a style='align-self: stretch; height: 6px; background: white;margin-top: 24px;color: white ;width: 795px'>'</a>
+      <div
+        style='margin-top: 8px; align-self: stretch; height: 68px; text-align: justify; color: #4e4d50; font-size: 18px; font-family: Open Sans; font-weight: 400; word-wrap: break-word;'>
+        {{retailCenterDescription}}
+      </div>
+    </div>
+
+    <div
+      style='width: 790px; align-self: stretch; height: 99px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex;margin-top: 20px'>
+      <div
+        style='align-self: stretch; height: 25px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex;'>
+        <div
+          style='margin-top: 30px; width: 177px; height: 16px; color: {{primaryColor}}; font-size: 14px; font-family: Open Sans; font-weight: 710; word-wrap: break-word;'>
+          DÉMOGRAPHIE
+        </div>
+      </div>
+      <a style='align-self: stretch; height: 6px; background: white;margin-top: 20px;color: white ;width: 795px'>'</a>
+      <div
+        style='margin-top: 8px; align-self: stretch; height: 68px; text-align: justify; color: #4e4d50; font-size: 18px; font-family: Open Sans; font-weight: 400; word-wrap: break-word;'>
+        {{demography}}
+      </div>
+    </div>
+
+    <div
+      style='width: 790px; align-self: stretch; height: 99px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex; margin-top: 70px;'>
+      <div
+        style='align-self: stretch; height: 25px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex;'>
+        <div
+          style='margin-top: 30px; width: 177px; height: 16px; color: {{primaryColor}}; font-size: 14px; font-family: Open Sans; font-weight: 710; word-wrap: break-word;'>
+          MIX MERCHANDISING
+        </div>
+      </div>
+      <a style='align-self: stretch; height: 6px; background: white;margin-top: 20px;color: white ;width: 795px'>'</a>
+      <div
+        style='margin-top: 8px; align-self: stretch; height: 68px; text-align: justify; color: #4e4d50; font-size: 18px; font-family: Open Sans; font-weight: 400; word-wrap: break-word;'>
+        {{mixMerchandising}}
+      </div>
+    </div>
+    <div
+      style='margin-top: 90px; align-self: stretch; height: 163px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: flex;'>
+    </div>
+    <div
+      style='width: 618px; align-self: stretch; height: 25px; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex;margin-top: -220px'>
+      <div
+        style='margin-top: 14px; width: 177px; height: 16px; color: {{primaryColor}}; font-size: 14px; font-family: Open Sans; font-weight: 710; word-wrap: break-word;'>
+        NOS MARQUES
+      </div>
+      <a style='align-self: stretch; height: 6px; background: white;margin-top: 1px;color: white ;width: 795px'>'</a>
+      <!--        <div style='align-self: stretch; height: 4px; background: white;margin-top: 6px'></div>-->
+      <div style='height: calc(7px + {{logosUrlsLength}}*0.5px); margin-top: 15px; width: 790px'>
+        <div
+          style='display: grid; grid-template-columns: repeat(18, 1fr); grid-gap: 2px; max-width: 80%; margin-top: -4px;'>
+          {{#each logosUrls}}
+            <div style='display: flex; justify-content: center; align-items: center;'>
+              <img style='width: 40px; height: 40px; object-fit:cover; border: 0.05px black solid' src='{{this}}' />
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    style='width: 798px; height: 90px; margin-top: 323px; margin-left: 136px; padding: 8px; left: 365px; top: 481px; position: absolute; background: #22222e; justify-content: space-between; align-items: center; display: inline-flex;'>
+    <div
+      style='width: 527px; color: white; font-size: 11px; font-family: Open Sans; font-weight: 400; word-wrap: break-word;'>
+      {{ownerEntity}}<br />
+      {{retailCenterDescription}}
+    </div>
+    <img style='width: 106px' src='{{logo}}' />
+  </div>
+  <div
+    style='margin-left: 22px; left: 13px; top: 14px; position: absolute; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex;margin-top: 20px'>
+    <div
+      style='width: 463px; height: 165px; background: white; justify-content: center; align-items: center; gap: 12px; display: inline-flex;'>
+      <div style='width: 112px; color: {{primaryColor}}; margin-top: -30px; font-size: 11.4px; font-family: C
+        ambria; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>
+        Année ouverture<br />Nb. places parking<br />Nombre visiteurs<br />Nb.
+        locaux<br />Nb. niveaux<br />GLA totale<br />Alimentaire<br />Emplacement
+      </div>
+      <div
+        style='width: 153px; height: 126px; margin-top: -14px; margin-left: 38px; color: black; font-size: 11.4px; font-family: Cambria; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>
+        {{openingYear}}<br />{{parkingSpaces}}<br />{{visitorsNumber}}<br />{{nbUnits}}<br />{{nbFloors}}
+        <br />{{surface}}m²
+        <br />{{flagShip}}<br />{{address}}<br />
+      </div>
+    </div>
+    {{#ifEmptyOrWhitespace areaMap}}
+      <img style='width: 463px; height: 714px; margin-top: -4px' src='../../uploads/proposition/image2.png' />
+    {{else}}
+      <img style='width: 463px; height: 710px; margin-top: -4px' src='{{areaMap}}' />
+    {{/ifEmptyOrWhitespace}}
+  </div>
+</div>
+</body>
+
+</html>

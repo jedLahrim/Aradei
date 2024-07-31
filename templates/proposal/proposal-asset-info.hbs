@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+  <title>Leasing Information</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      position: relative;
+      background: rgba(58, 125, 117, 0.5);
+    linear-gradient(0 deg, white 0 %, white 100 %);
+    }
+
+    .image-container {
+      width: 40%;
+      height: 100%;
+      /*background-color: #82aaa5;*/
+      overflow: hidden;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content-container {
+      width: 60%;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .leasing-section {
+      margin-bottom: 30px;
+    }
+
+    .title {
+      color: white;
+      font-size: 14px;
+      font-family: Open Sans, sans-serif;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .white-bar {
+      height: 4px;
+      background: white;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      color: #424242;
+      font-size: 13px;
+      font-family: Open Sans, sans-serif;
+    }
+
+    .hours-contact {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .hours-column {
+      width: 30%;
+      padding-right: 10px;
+      box-sizing: border-box;
+    }
+
+    .days-column {
+      padding-left: 0;
+    }
+
+    .hours-column:last-child {
+      font-weight: bold;
+      padding-right: 0;
+    }
+
+    .red-text {
+      color: #de1f1f;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <div class="image-container">
+    <img src="../../uploads/proposition/happy-shopper-woman-with-colorfull-shopping-bags-isolated-background 1.png"
+         alt="Placeholder Image">
+  </div>
+  <div class="content-container">
+    <div class="leasing-section">
+      <div class="title">SPECIALTY LEASING</div>
+      <div class="white-bar"></div>
+      <div class="content">
+        {{specialtyLeasing}}
+      </div>
+    </div>
+    <div class="leasing-section">
+      <div class="title">MEDIA LEASING</div>
+      <div class="white-bar"></div>
+      <div class="content">
+        <ul>
+          {{#each literalSpecialties}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+    <div class="leasing-section">
+      <div class="title">STATISTIQUES RÉSEAUX SOCIAUX</div>
+      <div class="white-bar"></div>
+      <div class="content">
+        {{socialMediaStats}}
+      </div>
+    </div>
+    <div class="leasing-section">
+      <div class="title">HORAIRES OUVERTURE</div>
+      <div class="white-bar"></div>
+      <div class="content">
+        {{#each workHours}}
+          <div class="hours-contact">
+            <div class="hours-column days-column">
+              {{this.days}}
+            </div>
+            <div class="hours-column">
+              {{this.hours}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="leasing-section">
+      <div class="title">INFORMATION CONTACT</div>
+      <div class="white-bar"></div>
+      <div class="content">
+        {{#each informationContact}}
+          <span style="font-weight: 600;">{{this.type}}</span>: {{this.name}}<br>
+          M : {{this.mobile}} - E : {{this.email}}
+          {{#unless @last}}<br><br>{{/unless}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

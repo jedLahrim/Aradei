@@ -1,0 +1,1 @@
+export const ACCOUNT_CREDENTIALS_DEBUG = 0;

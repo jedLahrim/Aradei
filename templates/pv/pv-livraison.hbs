@@ -1,0 +1,123 @@
+<html>
+
+<head></head>
+
+<body>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    .page {
+      width: 100%;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: bolder;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bolder;
+      margin-bottom: 10px;
+    }
+
+    .signature {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      text-align: center;
+    }
+  </style>
+  <div class="page">
+    <h1>Procès-Verbal de Livraison</h1>
+    <p> <strong>ENTRE: </strong></p>
+    <p>
+      <strong>{{ retailCenterInfos.name }}</strong>, {{retailCenterInfos.legalStatus}}
+      <strong>{{ retailCenterInfos.name }}</strong>, {{retailCenterInfos.legalStatus}}
+      d’associé unique, au capital social de {{retailCenterInfos.capital}} {{retailCenterInfos.currency}}, dont le siège
+      social est sis à {{ retailCenterInfos.city }},<br />
+      {{ retailCenterInfos.address }}, immatriculée au registre de commerce de
+      {{retailCenterInfos.legalPersonCityRC}} sous le numéro {{retailCenterInfos.legalPersonRC}}
+      <br />
+      valablement représentée par {{retailCenterInfos.legalPersonTitle }}
+      <strong>{{retailCenterInfos.legalPersonFirstname}} {{retailCenterInfos.legalPersonName }}</strong>, en vertu d’une
+      délégation de signature du Gérant. (ci-après dénommée, le «<strong>Bailleur</strong> »)
+    </p>
+    <p> <strong>ET: </strong></p>
+    <p>
+      <strong>{{ company.name }}</strong>, {{company.legalStatus}} à associé
+      unique au capital de {{company.capital}} {{company.currency}}, dont le siège social est sis à
+      {{company.address }}, {{company.city}}, immatriculée au registre de commerce de
+      {{company.city }} sous le numéro {{ company.rc }}
+      <br />
+      valablement représentée par {{prospectInfos.title}}
+      <strong>{{ prospectInfos.firstname }} {{prospectInfos.name}}</strong> en sa
+      qualité de {{prospectInfos.position}} (le Bailleur et le Preneur sont ci-après
+      collectivement dénommés les « <strong>Parties</strong> » et, individuellement
+      une « <strong>Partie</strong> »).
+    </p>
+    <h2>IL A ETE PRÉALABLEMENT EXPOSE QUE :</h2>
+    <p>
+      Aux termes du contrat de bail liant les deux parties, (le «
+      <strong>Bail</strong> ») portant sur {{#if singleUnit}} 'le local' {{else}} 'les locaux' {{/if}}
+      <strong>{{unitsIdsString}}</strong>
+      (tel que désigné dans le Bail), Conformément à l’article 27.4.2.2 du Bail, les
+      Parties procèdent ce jour soit le
+      (la « <strong>Date</strong> ») à la constatation de la livraison du Local.
+    </p>
+    <h2>CECI EXPOSE, IL EST CONVENU CE QUI SUIT :</h2>
+    <ol>
+      <li>
+        <strong>CONSTAT DE LIVRAISON DU LOCAL</strong>
+        <p>
+          A la Date de ce jour, il a été procédé contradictoirement à la constatation de
+          la Livraison du Local conformément au Bail, et le Preneur déclare que le Local
+          est en bon état de réception et accepte de le prendre dans son état à ce
+          jour.
+        </p>
+        <p>
+          A la Date de ce jour, le Preneur accepte la Livraison du Local au sens de
+          l’article 27.4.2.2 du Bail et les Parties reconnaissent expressément que :
+        </p>
+        <p>
+          Le Preneur a remis au Bailleur une copie d’une attestation d’assurance TRC
+          pour couvrir les risques conformément à l’article 12.2.1 du Bail. (Voir
+          annexe)
+        </p>
+        <p>
+          La Date de ce jour est la Date de Livraison du Local.
+        </p>
+      </li>
+      <li>
+        <strong>TRANSFERT DE LA GARDE</strong>
+        <p>
+          La livraison du Local vaut transfert de la garde du Local au Preneur à compter
+          de la Date de ce jour.
+        </p>
+      </li>
+      <li>
+        <strong>ANNEXES</strong>
+        <p>
+          La liste des Réserves constatées à la Date. (Voir Annexe joint au présent PV)
+        </p>
+      </li>
+    </ol>
+    <p style="text-align: center;margin-top:10px;">
+      Fait à {{retailCenterInfos.city}} à {{retailCenterInfos.name}}
+    </p>
+    <div class="signature">
+      <strong>Le Bailleur</strong>
+      <strong>Le Preneur</strong>
+    </div>
+  </div>
+</body>
+
+</html>

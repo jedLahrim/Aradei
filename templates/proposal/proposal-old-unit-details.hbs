@@ -1,0 +1,186 @@
+<html>
+
+<head></head>
+
+<body>
+  <style>
+    .page {
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 10% 20% 70%;
+      place-content: center;
+      place-items: center;
+    }
+
+    .header {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header>.title {
+      line-height: 1.5;
+      vertical-align: middle;
+      font-family: sans-serif;
+    }
+
+    .header>.title>.headline {
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .header>.title>.subhead {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .header>.logo {
+      width: 120px;
+      height: 100%;
+    }
+
+    .header>.logo>img {
+      width: 100%;
+    }
+
+    .unitImage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .unitImage>img {
+      max-width: 90%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .unitTable {
+      width: 100%;
+    }
+
+    table.GeneratedTable {
+      width: 100%;
+      background-color: #ffffff;
+      border-collapse: collapse;
+      border-width: 1px;
+      border-color: #d4d4d3;
+      border-style: solid;
+      color: #000000;
+    }
+
+    table.GeneratedTable td,
+    table.GeneratedTable th {
+      border-width: 1px;
+      border-color: #d4d4d3;
+      border-style: solid;
+      padding: 3px;
+    }
+
+    table.GeneratedTable thead {
+      background-color: #ffffff;
+    }
+  </style>
+  <div class="page">
+    <div class="header">
+      <div class="title" style="color: {{themeColor}};">
+        <span class="headline">{{floorName}} | {{retailCenterName}} - {{retailCenterCity}}</span>
+        <br />
+        <span class="subhead">Détails de l'étage :</span>
+      </div>
+      <div class="logo">
+        <img src="{{logo}}" />
+      </div>
+    </div>
+    {{#if unitImage}}
+    <div class="unitImage">
+      <img src="{{unitImage}}" />
+    </div>
+    {{/if}}
+
+    <div class="unitTable" {{#unless unitImage}} style="grid-row-start: 2;grid-row-end: -1;" {{/unless}}>
+      <p style="font-size: 18px; padding: 10px; text-align: center">
+        {{description}}
+      </p>
+      <table class="GeneratedTable">
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Couleur</strong>
+          </td>
+          <td style="background-color: {{unitColor}};font-size:18px;padding:10px"></td>
+        </tr>
+
+        <tr></tr>
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Unité</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">
+            {{alias}} - {{ unitId }}
+          </td>
+        </tr>
+
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Étage</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">{{floorName}}</td>
+        </tr>
+
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Gla Local</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">{{unitSurface}} m²</td>
+        </tr>
+        {{#if isLongTerm}}
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Gla Mezzanine</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">{{mezzanine}} m²</td>
+        </tr>
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Gla Terrasse</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">{{unit.terrasse}} m²</td>
+        </tr>
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Gla Pondérée</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">{{ glaPond}}m²</td>
+        </tr>
+        {{/if}}
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Type</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">{{typeLiteral}}</td>
+        </tr>
+        {{#unless isLongTerm}}
+        <tr>
+          <td style="font-size: 18px; padding: 10px">
+            <strong>Prix</strong>
+          </td>
+          <td style="font-size: 18px; padding: 10px">
+            <span>
+              {{unitPrice}} {{#unless isLongTerm}} /MOIS {{/unless}}
+            </span>
+          </td>
+        </tr>
+        {{/unless}}
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

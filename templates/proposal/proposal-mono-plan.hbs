@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+  <title>Document</title>
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div
+  style="width: 1140px; height: 790px; margin-top: -7px;padding-top: 11px; background: #f4f4f4; justify-content: center; align-items: center; display: inline-flex">
+  <div
+    style="align-self: stretch; flex-direction: column; justify-content: flex-start; align-items: center; gap: 15px; display: inline-flex">
+    <div style="width: 827px; justify-content: space-between; align-items: flex-start; display: inline-flex">
+      <div style="width: 120px; height: 53px">
+          <span
+            style="color: {{ themeColor }}; font-size: 20px; margin-left: -132px;font-family: Open Sans; font-weight: 700; word-wrap: break-word">{{retailCenterName}}
+            <br /></span>
+        <span
+          style="color: {{ themeColor }}; font-size: 14px; margin-left: -132px;font-family: Open Sans; font-weight: 400; word-wrap: break-word">{{retailCenterLevel}}
+          - {{unitId}}</span>
+      </div>
+    </div>
+    <div>
+      <img style="width: 795px; height: 460px ;margin-top: 70px" src="{{monoPlan}}" />
+    </div>
+    <div
+      style="flex-direction: column; justify-content: flex-start; align-items: center; gap: 2px; display: flex;margin-top: 80px">
+      <div
+        style="width: 1136px; height: 91px;padding: 8px; background: #22222E; justify-content: center; align-items: center; gap: 48px; display: inline-flex;margin-left: -7px">
+        <img style="width: 106px; height: 47px ;margin-right: 80px" src="{{logo}}" />
+        <!--          <div style="color: #f4f4f5; font-size: 10px; font-family: Open Sans; font-weight: 400; word-wrap: break-word">-->
+        <!--            {{#each informationContact}}-->
+        <!--            <p>E: {{this}}</p>-->
+        <!--            {{/each}}-->
+        <!--          </div>-->
+      </div>
+      <img style="width: 90px; height: 90px;margin-left: 1020px;margin-top: -790px" src="{{RetailCenterLogo}}" />
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
